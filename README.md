@@ -1,5 +1,3 @@
-Models are trained on the preprocessed dataset which can be downloaded [here](https://drive.google.com/open?id=0B_voCy5O5sXMTFByemhpZllYREU).
-
 ## Local Set-Up
 ### Local:
 - It is recommended to set up the project inside a virtual environment to keep the dependencies separated.
