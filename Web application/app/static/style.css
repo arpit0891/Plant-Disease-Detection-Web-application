@@ -1,3 +1,9 @@
+/*@font-face {
+  font-family: "Muli-Regular";
+  src: url("../fonts/muli/Muli-Regular.ttf"); }
+@font-face {
+  font-family: "Muli-SemiBold";
+  src: url("../fonts/muli/Muli-SemiBold.ttf"); }*/
 
 * {
     -webkit-box-sizing: border-box;
@@ -8,7 +14,7 @@
 body {
     background-color: #C0C0C0;
     font-family: "Muli-Regular";
-    font-size: 14px;
+    font-size: 12px;
     margin: 0;
 }
 
@@ -17,7 +23,7 @@ body {
     color: #696969;
     left: 840px;
     bottom: 28px;
-    font-size: 20px;
+    font-size: 16px;
     position: fixed;
 }
 
@@ -29,12 +35,13 @@ button {
     letter-spacing: 1px;
     color: #013220;
     font-family: 'Abril Fatface', cursive;
-    font-size: 50px;
+    font-size: 40px;
     position: fixed;
     font-weight: 900;
     left: 840px;
     top: 56px;
 }
+
 
 .img {
     border-radius: 24px;
@@ -78,8 +85,35 @@ button {
     width: 348px;
 }
 
+}
 
+.github-corner:hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out
+}
 
+@media (max-width:400px) {
+    .github-corner:hover .octo-arm {
+        animation: none
+    }
+    .github-corner .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
+    }
+}
+
+@keyframes octocat-wave {
+    0%,
+    100% {
+        transform: rotate(0)
+    }
+    20%,
+    60% {
+        transform: rotate(-25deg)
+    }
+    40%,
+    80% {
+        transform: rotate(10deg)
+    }
+}
 
 form {
     border-radius: 24px;
@@ -102,7 +136,7 @@ form {
 .add {
     background: #013220;
     font-family: "Muli-Regular";
-    font-size: 15px;
+    font-size: 12px;
     text-align: center;
     width: 72px;
     height: 32px;
@@ -115,7 +149,7 @@ form {
     color: #696969;
     top: 160px;
     left: 840px;
-    font-size: 20px;
+    font-size: 16px;
     position: fixed;
 }
 
@@ -138,7 +172,7 @@ form {
 button {
     border: none;
     width: 100%;
-    height: 49px;
+    height: 45px;
     margin-top: 24px;
     margin-bottom: 24px;
     cursor: pointer;
@@ -150,11 +184,16 @@ button {
     color: #fff;
     text-transform: uppercase;
     font-family: "Muli-SemiBold";
-    font-size: 15px;
+    font-size: 12px;
     letter-spacing: 2px;
     transition: all 0.5s;
     position: relative;
     overflow: hidden;
+}
+
+button span {
+    position: relative;
+    z-index: 2;
 }
 
 button span {
@@ -192,11 +231,7 @@ button:hover:after {
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
 }
-button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 10px #666;
-  transform: translateY(4px);
-}
+
 body {
     overflow: hidden;
 }
