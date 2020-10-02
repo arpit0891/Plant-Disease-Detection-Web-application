@@ -1,11 +1,13 @@
-## About Plant Disease Detection Web Application
+# Plant Disease Detection Web Application:
    - Deep learning with convolutional neural networks (CNNs) has achieved great success in the classification of various plant diseases. However, a limited number of studies have elucidated the process of inference, leaving it as an untouchable black box. 
    - Revealing the CNN to extract the learned feature as an interpretable form not only ensures its reliability but also enables the validation of the model authenticity and the training dataset by human intervention. 
    - In this study, a variety of neuron-wise and layer-wise visualization methods were applied using a CNN, trained with a publicly available plant disease image dataset. We showed that neural networks can capture the colors and textures of lesions specific to respective diseases upon diagnosis, which resembles human decision-making. 
    - While several visualization methods were used as they are, others had to be optimized to target a specific layer that fully captures the features to generate consequential outputs. Moreover, by interpreting the generated attention maps, we identified several layers that were not contributing to inference and removed such layers inside the network, decreasing the number of parameters by 75% without affecting the classification accuracy. 
    - The results provide an impetus for the CNN black box users in the field of plant science to better understand the diagnosis process and lead to further efficient use of deep learning for plant disease diagnosis.
    
-   **Go to https://spj.sciencemag.org/plantphenomics/2019/9237136/ to read the complete article about 'How Convolutional Neural Networks Diagnose Plant Disease'**
+   **Go to https://spj.sciencemag.org/plantphenomics/2019/9237136/ for the complete article on 'How Convolutional Neural Networks Diagnose Plant Disease'**
+   
+   ** Head on to [How Convolutional Neural Networks Diagnose Plant Disease](https://spj.sciencemag.org/plantphenomics/2019/9237136/) for the complete article. **
    
 ## Local Set-Up
 ### Local:
