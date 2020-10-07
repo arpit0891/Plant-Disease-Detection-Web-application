@@ -12,7 +12,7 @@
 - It is recommended to set up the project inside a virtual environment to keep the dependencies separated.
     * [Python](https://realpython.com/python-virtual-environments-a-primer/#why-the-need-for-virtual-environments)
     * [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
-- Activate your virtual environment for the project.
+- Activate your virtual environment.
 - Install dependencies by running `pip install -r requirements.txt`.
 - Start up the server by running `python app/server.py serve`.
 - Visit <http://localhost:8080/> to explore and test.
@@ -54,11 +54,11 @@
 
 - **Google Cloud Platform:**
 
-  The complete guideline for deploying the *Plant Disease Detection App* can be found [*here*](./deployment_guide/gcp_deployment.md)
+  The complete guideline to deploy the *Plant Disease Detection App* can be found [*here*](./deployment_guide/gcp_deployment.md)
   
 - **AWS Elastic BeanStalk:**
   
-  The complete guideline for deploying the *Plant Disease Detection App* can be found [*here*](./deployment_guide/aws_deployment.md)
+  The complete guideline to deploy the *Plant Disease Detection App* can be found [*here*](./deployment_guide/aws_deployment.md)
 
 
 ## Server Set-Up  (For Training)
