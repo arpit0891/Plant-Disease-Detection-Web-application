@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/ -->
+<html lang="en-GB" class="csstransforms no-csstransforms3d csstransitions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="https://uaceit.com/my-xml-rpc.php">
+    <title>Plant Disease Detection Web Application using Fastai – UAceIt</title>
+<link rel="alternate" type="application/rss+xml" title="UAceIt » Feed" href="https://uaceit.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="UAceIt » Comments Feed" href="https://uaceit.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="UAceIt » Plant Disease Detection Web Application using Fastai Comments Feed" href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/feed/">
+<script src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/cb=gapi.loaded_1" async=""></script><script type="text/javascript" async="" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/linkid.js.download"></script><script src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/cb=gapi.loaded_0" async=""></script><script async="" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/analytics.js.download"></script><script type="text/javascript" data-cfasync="false">
+	var mi_version         = '7.12.2';
+	var mi_track_user      = true;
+	var mi_no_track_reason = '';
+	
+	var disableStr = 'ga-disable-UA-161643675-1';
+	/* Function to detect opted out users */
+	function __gaTrackerIsOptedOut() {
+		return document.cookie.indexOf(disableStr + '=true') > -1;
+	}
+	/* Disable tracking if the opt-out cookie exists. */
+	if ( __gaTrackerIsOptedOut() ) {
+		window[disableStr] = true;
+	}
+	/* Opt-out function */
+	function __gaTrackerOptout() {
+	  document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+	  window[disableStr] = true;
+	}
+	if ( 'undefined' === typeof gaOptout ) {
+		function gaOptout() {
+			__gaTrackerOptout();
+		}
+	}
+	
+	if ( mi_track_user ) {
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+		__gaTracker('create', 'UA-161643675-1', 'auto');
+		__gaTracker('set', 'forceSSL', true);
+		__gaTracker('require', 'displayfeatures');
+		__gaTracker('require', 'linkid', 'linkid.js');
+		__gaTracker('send','pageview');
+	} else {
+		console.log( "" );
+		(function() {
+			/* https://developers.google.com/analytics/devguides/collection/analyticsjs/ */
+			var noopfn = function() {
+				return null;
+			};
+			var noopnullfn = function() {
+				return null;
+			};
+			var Tracker = function() {
+				return null;
+			};
+			var p = Tracker.prototype;
+			p.get = noopfn;
+			p.set = noopfn;
+			p.send = noopfn;
+			var __gaTracker = function() {
+				var len = arguments.length;
+				if ( len === 0 ) {
+					return;
+				}
+				var f = arguments[len-1];
+				if ( typeof f !== 'object' || f === null || typeof f.hitCallback !== 'function' ) {
+					console.log( 'Not running function __gaTracker(' + arguments[0] + " ....) because you are not being tracked. " + mi_no_track_reason );
+					return;
+				}
+				try {
+					f.hitCallback();
+				} catch (ex) {
+				}
+			};
+			__gaTracker.create = function() {
+				return new Tracker();
+			};
+			__gaTracker.getByName = noopnullfn;
+			__gaTracker.getAll = function() {
+				return [];
+			};
+			__gaTracker.remove = noopfn;
+			window['__gaTracker'] = __gaTracker;
+					})();
+		}
+</script>
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/jquery-ui.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/animate.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/font-awesome-5.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wppb-fonts.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wppb-addons.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wppb-main.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/vendors-style.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/style.min(1).css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/style.min(2).css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/style.min(3).css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/style.min(4).css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/blocks.style.build.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/css(1)" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/themeum-core.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/buttons.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/dashicons.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/editor.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/tutor-icon.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/plyr.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/tutor-front.min.css" type="text/css" media="all">
+<style id="tutor-frontend-inline-css" type="text/css">
+:root{}
+</style>
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/instructor-signature.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/woocommerce-layout.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/woocommerce-smallscreen.css" type="text/css" media="only screen and (max-width: 768px)">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/woocommerce.css" type="text/css" media="all">
+<style id="woocommerce-inline-inline-css" type="text/css">
+.woocommerce form .form-row .required { visibility: visible; }
+</style>
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wppb-pro-addon.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/view.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/mediaelementplayer-legacy.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wp-mediaelement.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/media-views.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/imgareaselect.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/bootstrap.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/fontawesome.all.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/nice-select.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/magnific-popup.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/main.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/woocommerce(1).css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/css(2)" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/view-child.css" type="text/css" media="all">
+<style id="edumax-style-inline-css" type="text/css">
+body{font-size:14px;font-family:Muli;font-weight: 400;line-height: 24px;color: #6d7382;}.common-menu-wrap li a, .header-cat-menu{font-size:14px;font-family:Quicksand;font-weight: 500;line-height: 35px;}h1{font-size:42px;font-family:Quicksand;font-weight: 500;line-height: 42px;}h2{font-size:36px;font-family:Quicksand;font-weight: 500;line-height: 36px;}h3{font-size:26px;font-family:Quicksand;font-weight: 500;line-height: 28px;}h4{font-size:18px;font-family:Quicksand;font-weight: 500;line-height: 26px;}h5{font-size:14px;font-family:Quicksand;font-weight: 500;line-height: 26px;}.site-header{ background-color: #ffffff; }.site-header{ padding-top: 20px; }.site-header{ padding-bottom: 20px; }.site-header{ margin-bottom: 0px; }.themeum-navbar-header .themeum-navbar-brand img{width:-1000px; max-width:none;}.themeum-navbar-header .themeum-navbar-brand img{height:-1000px;}.subtitle-cover h2{font-size:49px;color:#000000;}.breadcrumb>li+li:before, .subtitle-cover .breadcrumb, .subtitle-cover .breadcrumb>.active{color:#000000;}.subtitle-cover .breadcrumb a{color:#000000;}.subtitle-cover .breadcrumb a:hover{color:#000000;}.subtitle-cover{padding:88px 0 80px; margin-bottom: 80px;}html{ background-color: #F6FAFB; }.sub_menu_bg{ background-color: #fff; }.sub_menu_text_color{ color: #191919; border-color: #eef0f2; }.sub_menu_text_color_hover:hover{ color: #50a2ff;}.common-menu-wrap .nav>li > ul::after{ border-color: transparent transparent #fff transparent; }#bottom-wrap{ background-color: #282836; }#bottom-wrap,.bottom-widget .widget h3.widget-title{ color: #B1B8C9; }#bottom-wrap a{ color: #8C94A8; }#bottom-wrap a:hover{ color: #ffffff; }#bottom-wrap{ padding-top: 80px; }#bottom-wrap{ padding-bottom: 45px; }#footer-wrap{ background-color: #000000; }.footer-copyright { color: #8C94A8; }.menu-footer-menu a{ color: #8C94A8; }.menu-footer-menu a:hover{ color: #ffffff; }#footer-wrap{ padding-top: 25px; }#footer-wrap{ padding-bottom: 25px; }body.error404,body.page-template-404{ width: 100%; height: 100%; min-height: 100%; }
+</style>
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/posts-addon.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/thm-animated-heading.css" type="text/css" media="all">
+<link rel="stylesheet" href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/style.min(5).css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var monsterinsights_frontend = {"js_events_tracking":"true","download_extensions":"doc,pdf,ppt,zip,xls,docx,pptx,xlsx","inbound_paths":"[{\"path\":\"\\\/go\\\/\",\"label\":\"affiliate\"},{\"path\":\"\\\/recommend\\\/\",\"label\":\"affiliate\"}]","home_url":"https:\/\/uaceit.com","hash_tracking":"false"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/frontend.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/jquery.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/jquery-migrate.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/main.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var userSettings = {"url":"\/","uid":"0","time":"1603096256","secure":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/utils.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/instructor-signature.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/moxie.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/plupload.min.js.download"></script>
+<!--[if lt IE 8]>
+<script type='text/javascript' src='https://uaceit.com/resources/js/json2.min.js'></script>
+<![endif]-->
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/api_client.js.download" gapi_processed="true"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://uaceit.com/my-xml-rpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://uaceit.com/resources/wlwmanifest.xml"> 
+<link rel="canonical" href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/">
+<link rel="shortlink" href="https://uaceit.com/?p=2445">
+<script>var tutor_loading_icon_url="https://uaceit.com/wp-admin/images/loading.gif";</script>	<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style><link rel="icon" href="https://uaceit.com/media/2020/02/cropped-Add_a_heading__4_-removebg-preview-32x32.png" sizes="32x32">
+<link rel="icon" href="https://uaceit.com/media/2020/02/cropped-Add_a_heading__4_-removebg-preview-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://uaceit.com/media/2020/02/cropped-Add_a_heading__4_-removebg-preview-180x180.png">
+<meta name="msapplication-TileImage" content="https://uaceit.com/media/2020/02/cropped-Add_a_heading__4_-removebg-preview-270x270.png">
+		<style type="text/css" id="wp-custom-css">
+			.tutor-quiz-builder-modal-tabs-notice {
+    display: none;
+}
+.woocommerce-additional-fields{
+	display: none;
+}		</style>
+		</head>
+<body class="post-template-default single single-post postid-2445 single-format-standard theme-edumax woocommerce-js fullwidth-bg">
+<div id="page" class="hfeed site fullwidth" style="padding-top: 0px;">
+    <header id="masthead" class="site-header header header-solid   ">
+        <div class="container">
+            <div class="main-menu-wrap row align-items-center no-gutters">
+                <div class="col col-lg-auto order-1">
+                    <div class="themeum-navbar-header">
+                        <div class="logo-wrapper">
+                            <a class="themeum-navbar-brand" href="https://uaceit.com/">
+                                <img class="enter-logo img-responsive" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/Add_a_heading__3_-removebg-preview.png" alt="Logo" title="Logo">                            </a>
+                        </div>
+                    </div>
+                </div>
+                                    <div class="col-auto d-lg-none order-lg-2 order-4">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><i class="fas fa-bars"></i></button>
+                    </div>
+                    <div id="mobile-menu" class="d-lg-none thm-mobile-menu order-lg-2 order-3">
+                        <div class="collapse navbar-collapse">
+                            <ul id="menu-main-menu" class="nav navbar-nav"><li id="menu-item-584" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-584"><a title="About Us" href="https://uaceit.com/about-us/">About Us</a></li>
+<li id="menu-item-692" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-692"><a title="Events" href="https://uaceit.com/events/">Events</a></li>
+<li id="menu-item-960" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-960"><a title="Ace Stories" href="https://uaceit.com/ace-stories/">Ace Stories</a></li>
+<li id="menu-item-1385" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1385"><a title="Puzzles" href="https://uaceit.com/puzzles/">Puzzles</a></li>
+<li id="menu-item-748" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-748"><a title="Become a trainer" href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/#">Become a trainer</a>
+                <span class="menu-toggler collapsed" data-toggle="collapse" data-target=".collapse-748">
+                <i class="fas fa-angle-right"></i>
+                </span>
+<ul role="menu" class="collapse collapse-748 ">
+	<li id="menu-item-644" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-644"><a title="Instructor Registration" href="https://uaceit.com/instructor-registration/">Instructor Registration</a></li>
+	<li id="menu-item-751" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-751"><a title="How to start your first course" href="https://uaceit.com/how-to-start-your-first-course/">How to start your first course</a></li>
+</ul>
+</li>
+</ul>                        </div>
+                    </div>
+                
+                <div class="d-lg-none col-12 order-lg-3 order-5 header-empty-column"></div>
+                <div class="col-auto thm-cat-col order-lg-4 order-5">
+                                            <div class="header-cat-menu">
+                            <div>
+                                
+                                Category                                <i class="fas fa-caret-down"></i>
+                            </div>
+                            <ul>
+                                	<li class="cat-item cat-item-116"><a href="https://uaceit.com/course-category/android-development/">Android Development</a>
+</li>
+	<li class="cat-item cat-item-115"><a href="https://uaceit.com/course-category/business-analytics/">Business Analytics</a>
+</li>
+	<li class="cat-item cat-item-114"><a href="https://uaceit.com/course-category/data-science/">Data Science</a>
+</li>
+	<li class="cat-item cat-item-23"><a href="https://uaceit.com/course-category/design/">Design</a>
+</li>
+	<li class="cat-item cat-item-24 category-has-childern"><a href="https://uaceit.com/course-category/development/">Development</a>
+<ul class="children">
+	<li class="cat-item cat-item-68"><a href="https://uaceit.com/course-category/alexa/">Alexa</a>
+</li>
+	<li class="cat-item cat-item-92"><a href="https://uaceit.com/course-category/angular/">Angular</a>
+</li>
+	<li class="cat-item cat-item-64"><a href="https://uaceit.com/course-category/c/">C++</a>
+</li>
+	<li class="cat-item cat-item-95"><a href="https://uaceit.com/course-category/cloud-computing/">Cloud Computing</a>
+</li>
+	<li class="cat-item cat-item-118"><a href="https://uaceit.com/course-category/dart/">Dart</a>
+</li>
+	<li class="cat-item cat-item-117"><a href="https://uaceit.com/course-category/flutter/">Flutter</a>
+</li>
+	<li class="cat-item cat-item-31"><a href="https://uaceit.com/course-category/javascript/">JavaScript</a>
+</li>
+	<li class="cat-item cat-item-69"><a href="https://uaceit.com/course-category/node-js/">Node js</a>
+</li>
+	<li class="cat-item cat-item-67"><a href="https://uaceit.com/course-category/operating-system/">Operating System</a>
+</li>
+	<li class="cat-item cat-item-65"><a href="https://uaceit.com/course-category/python/">Python</a>
+</li>
+	<li class="cat-item cat-item-113"><a href="https://uaceit.com/course-category/sql/">SQL</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-129"><a href="https://uaceit.com/course-category/live-classes/">Live Classes</a>
+</li>
+	<li class="cat-item cat-item-28"><a href="https://uaceit.com/course-category/personality-development/">Personality Development</a>
+</li>
+	<li class="cat-item cat-item-83"><a href="https://uaceit.com/course-category/video-course/">Video Course</a>
+</li>
+	<li class="cat-item cat-item-84"><a href="https://uaceit.com/course-category/written-course/">Written Course</a>
+</li>
+                            </ul>
+                        </div>
+                                    </div>
+                                <div class="col common-menu d-none d-lg-block order-lg-7">
+                                                                        <div id="main-menu" class="common-menu-wrap">
+                                <ul id="menu-main-menu-1" class="navigation-menu"><li class=" menu-item menu-item-type-post_type menu-item-object-page has-menu-child"><a href="https://uaceit.com/about-us/">About Us</a></li>
+<li class=" menu-item menu-item-type-post_type menu-item-object-page has-menu-child"><a href="https://uaceit.com/events/">Events</a></li>
+<li class=" menu-item menu-item-type-post_type menu-item-object-page has-menu-child"><a href="https://uaceit.com/ace-stories/">Ace Stories</a></li>
+<li class=" menu-item menu-item-type-post_type menu-item-object-page has-menu-child"><a href="https://uaceit.com/puzzles/">Puzzles</a></li>
+<li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-menu-child"><a href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/#">Become a trainer</a>
+<ul role="menu" class="sub-menu">
+	<li class=" menu-item menu-item-type-post_type menu-item-object-page has-menu-child"><a href="https://uaceit.com/instructor-registration/">Instructor Registration</a></li>
+	<li class=" menu-item menu-item-type-post_type menu-item-object-page has-menu-child"><a href="https://uaceit.com/how-to-start-your-first-course/">How to start your first course</a></li>
+</ul>
+</li>
+</ul>                            </div>
+                                            </div>
+                    <div class="col col-lg-auto order-lg-6 order-6">
+                            <form class="edumax-header-search search_form_shortcode" role="search" action="https://uaceit.com/courses/" method="get">
+        <input class="edumax-ajax-search" data-url="https://uaceit.com/addon/edumax-core/lib/search-data.php" type="text" name="s" value="" placeholder="Search Course">
+        <button type="submit"><i class="fas fa-search"></i></button>
+        <div class="edumax-course-search-results"></div>
+    </form>
+                        </div>
+                                            <div class="col-auto order-lg-7 order-3">
+                                    <ul id="site-header-cart" class="site-header-cart menu">
+            <li class="cart-icon">
+                        <a class="cart-contents" href="https://uaceit.com/cart/" title="View your shopping cart">
+            <span class="count">0</span>
+        </a>
+        
+            </li>
+            <li>
+                <div class="widget woocommerce widget_shopping_cart"><div class="widget_shopping_cart_content">
+
+	<p class="woocommerce-mini-cart__empty-message">No products in the basket.</p>
+
+
+</div></div>            </li>
+        </ul>
+                                </div>
+                    
+                                            <div class="col-auto order-lg-7 order-2">
+                            <div class="header_btn_group">
+                                                                    <a class="login-popup edumax-login-tab-toggle" href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/#tab-1">Login</a>
+                                    
+                                    
+                                        
+                                    
+                                                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+    </header>
+<div class="subtitle-cover sub-title" style="background-image:url(https://uaceit.com/media/2019/05/edumax-home-1.jpg);background-size: cover;background-position: center;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                
+        <ol class="breadcrumb">
+            <li><a href="https://uaceit.com/" class="breadcrumb_home"><i class="fas fa-home"></i></a></li>
+            <li class="active">
+                                <a href="https://uaceit.com/category/machine-learning/">Machine Learning</a> <span class="raquo"></span>                 
+            </li>
+        </ol>
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                    <h2 class="page-leading">Latest Blog</h2>            </div>
+        </div>
+    </div>
+</div>
+
+    <section id="main" class="generic-padding">
+        <div class="container single-wrapper-content">
+            <div class="row">
+                                <div id="content" class="site-content blog-content-wrapper col-sm-8" role="main">
+                     
+                                                    <article id="post-2445" class="edumax-post edumax-single-post single-content-flat post-2445 post type-post status-publish format-standard has-post-thumbnail hentry category-machine-learning tag-deep-learning tag-fastai tag-machine-learning tag-plants tag-pytorch">
+    
+        <div class="blog-details-img"><img width="700" height="467" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/first.jpeg" class="img-fluid wp-post-image" alt="" srcset="https://uaceit.com/media/2020/04/first.jpeg 700w, https://uaceit.com/media/2020/04/first-300x200.jpeg 300w, https://uaceit.com/media/2020/04/first-600x400.jpeg 600w" sizes="(max-width: 700px) 100vw, 700px"></div>
+        <div class="edumax-post-content">
+            <h2 class="content-item-title">Plant Disease Detection Web Application using Fastai</h2>    <ul class="blog-post-meta">
+                    <li class="meta-author">
+                By <a href="https://uaceit.com/author/admin/">UAceIt</a>
+            </li>
+        
+                    <li>
+                <div class="blog-date-wrapper">
+                                        <a href="https://uaceit.com/2020/04/15/"><time datetime="2020-04-15"><i class="fas fa-calendar"></i> April 15, 2020</time></a>
+                </div>
+            </li>
+        
+                    <li class="meta-category">
+                <i class="fas fa-folder"></i> <a href="https://uaceit.com/category/machine-learning/" rel="category tag">Machine Learning</a>            </li>
+        
+                    <li>
+                <i class="fas fa-eye" aria-hidden="true"></i>                <span>127</span>
+            </li>
+        
+                    <li><i class="fas fa-tags"></i> <a href="https://uaceit.com/tag/deep-learning/" rel="tag">Deep Learning</a>, <a href="https://uaceit.com/tag/fastai/" rel="tag">Fastai</a>, <a href="https://uaceit.com/tag/machine-learning/" rel="tag">Machine Learning</a>, <a href="https://uaceit.com/tag/plants/" rel="tag">Plants</a>, <a href="https://uaceit.com/tag/pytorch/" rel="tag">Pytorch</a></li>
+        
+                    <li><i class="fas fa-comments"></i> <span>0 Comments</span></li>
+        
+    </ul>
+            <div class="entry-blog">
+                <div class="entry-summary clearfix">
+    
+<p><em>Achieving state of the art result with fast.ai</em></p>
+<p>by <strong><em>Shubham Kumar</em></strong> <br>Demystifying Artificial Intelligence! Follow him for amazing cool stuffs related to technology! http://shubhamkumar.live</p>
+<h1 id="964b">Introduction</h1>
+<p>Creating an AI web application that detects <strong>diseases</strong> in <strong>plants</strong> using FastAi which built on the top of Facebook’s deep learning platform: <strong>PyTorch</strong>. According to the Food and Agriculture Organization of the United Nations (UN), transboundary <strong>plant pests</strong> and <strong>diseases</strong> affect food crops, causing significant losses to farmers and threatening food security.</p>
+<h4 class="has-text-align-center"><strong>Achieved 99.654% Accuracy with Resnet34 model</strong></h4>
+<h1 id="94c4">Motive</h1>
+<p>For this challenge, I used the “<a href="https://plantvillage.psu.edu/" target="_blank" rel="noreferrer noopener"><strong>PlanVillage</strong></a><strong>” </strong>dataset.
+ This dataset contains an open access repository of images on plant 
+health to enable the development of mobile disease diagnostics. The 
+dataset contains 54, 309 images. The images span 14 crop species:<em> Apple, Blueberry, Cherry, Grape, Orange, Peach, Bell Pepper, Potato, Raspberry, Soybean, Squash, Strawberry, and Tomato</em>.
+ It contains images of 17 fundal diseases, 4 bacterial diseases, 2 molds
+ (oomycete) diseases, 2 viral diseases, and 1 disease caused by a mite. 
+12 crop species also have images of healthy leaves that are not visibly 
+affected by a disease.</p>
+<h1 id="549c">Platform</h1>
+<figure class="wp-block-image"><img src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/1_3tX5wuhfLPeinWsdEemi3Q.jpeg" alt=""></figure>
+<p>I have used <strong><em>Google Cloud Platform </em></strong>with the base platform called, <code>n1-highmem-8</code>, and costs $0.12 per hour. Attaching a P4 GPU costs $0.26 per hour so both together amount to <strong>$0.38 per hour</strong>. And the suggested 200GB Standard Disk storage size, there will be an <strong>additional charge of $9.60 a month</strong>. For a full walkthrough, setup visit <a rel="noreferrer noopener" href="https://course.fast.ai/start_gcp.html" target="_blank">here</a>!</p>
+<h1 id="3d80">Training</h1>
+<p>I have used fastai which is built on top of Pytorch. Dataset consists of 38 disease classes from <a rel="noreferrer noopener" href="https://plantvillage.org/" target="_blank">PlantVillage</a> dataset and 1 background class from Stanford’s open dataset of background images <a rel="noreferrer noopener" href="http://dags.stanford.edu/projects/scenedataset.html" target="_blank">DAGS</a>. <strong>80% of the dataset is used for training and 20% for validation.</strong></p>
+<figure class="wp-block-image"><img src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/1_IuMNJbzhEqQGEx2KlvvGcw.jpeg" alt=""><figcaption>Source: Google Images</figcaption></figure>
+<p>We will use the pre-trained <strong>resnet34</strong> model to solve the issue with the training.</p>
+<p>Start every notebook with the following three lines:</p>
+<pre class="wp-block-code"><code>%reload_ext autoreload
+%autoreload 2
+%matplotlib inline</code></pre>
+<p>The lines in jupyter notebook that start with ‘%’ are called <a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html" target="_blank" rel="noreferrer noopener"><strong>Line Magics</strong></a>. These are not instructions for Python to execute but to Jupyter notebook.</p>
+<p>The
+ first two lines will ensure automatic reload whenever you make any 
+changes in the library. And the third line to show charts and graphs in 
+the notebook.</p>
+<p>Import all the import libraries:</p>
+<pre class="wp-block-preformatted"><code>from fastai import *
+from fastai.vision import *
+from fastai.metrics import error_rate, accuracy</code></pre>
+<p>Now, give the path of the dataset (in my case it is in the root directory):</p>
+<pre class="wp-block-preformatted"><code>PATH_IMG = Path('PlantVillage/')</code></pre>
+<p>Batch
+ size means we will feed x images at once to update parameters of our 
+deep learning model. Set batch size to 64, if smaller GPU use 16 or 32 
+instead of 64.</p>
+<div class="wp-block-group"><div class="wp-block-group__inner-container">
+<pre class="wp-block-verse"><code>bs = 64</code></pre>
+</div></div>
+<p><code>ImageDataBunch</code> is used to do classification based on images.</p>
+<p><a href="https://docs.fast.ai/vision.data#ImageDataBunch.from_folder" target="_blank" rel="noreferrer noopener">ImageDataBunch.from_folder</a> gets the label names from the folder name automatically. fastai library has <a href="https://docs.fast.ai/" target="_blank" rel="noreferrer noopener">awesome documentation</a>
+ to navigate through their library functions with live examples on how 
+to use them. Once the data is loaded, we can also normalize the data by 
+using .normalize to ImageNet parameters.</p>
+<pre class="wp-block-preformatted"><code>img_data = ImageDataBunch.from_folder(path=PATH_IMG, train='train', valid='val', ds_tfms=get_transforms(), size=224, bs=bs)img_data.normalize(imagenet_stats)</code></pre>
+<ul><li><code>path</code> the path of the images directory.</li><li><code>ds_tfms</code> the transformations that are needed for the image. This includes centering, cropping and zooming of the images.</li><li><code>size</code>
+ the size to which the image is to be resized. This is usually a square 
+image. This is done because of the limitation in the GPU that the GPU 
+performs faster only when it has to do similar computations (such as 
+matrix multiplication, addition and so on) on all the images.</li></ul>
+<p>To look at a random sample of images, we can use .show_batch() function ImageDataBunch class.</p>
+<pre class="wp-block-preformatted"><code>img_data.show_batch(rows=3, figsize=(10,8))</code></pre>
+<figure class="wp-block-image"><img src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/1_BtB3ApUfBp9Aui3Zm9LoVQ.png" alt=""></figure>
+<p>To continue reading <a href="https://towardsdatascience.com/plant-disease-detection-web-application-using-fastai-b0c389b82371" target="_blank" rel="noreferrer noopener" aria-label="click here (opens in a new tab)">click here</a></p>
+            <div class="clearfix post-navigation">
+                <span class="previous-post pull-left"><a href="https://uaceit.com/2020/04/14/my-first-programming-language/" rel="prev"><i class="fas fa-long-arrow-alt-left"></i> Previous article</a></span>                <span class="next-post pull-right"><a href="https://uaceit.com/2020/09/23/edge-computing/" rel="next">Next article <i class="fas fa-long-arrow-alt-right"></i></a></span>            </div>
+                    <div class="usehlhdkjs">
+                <div id="comments" class="comments-area comments">
+        	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Write a comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/#respond" style="display:none;">Cancel reply</a></small></h3><p class="must-log-in">You must be <a href="https://uaceit.com/login">logged in</a> to post a comment.</p>	</div>
+	</div>            </div>
+        </div> 
+            </div> 
+        </div>
+    </article>                                                                <div class="clearfix"></div>
+                </div> 
+                <div id="sidebar" class="col-md-4" role="complementary">
+    <aside class="widget-area">
+        <div id="search-2" class="widget widget_search"><form method="get" id="searchform" action="https://uaceit.com/">
+    <input type="text" value="" name="s" id="s" class="form-control" placeholder="Search....." autocomplete="off">
+</form></div>		<div id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget_title">Recent Posts</h3>		<ul>
+											<li>
+					<a href="https://uaceit.com/2020/09/23/edge-computing/">Edge Computing</a>
+									</li>
+											<li>
+					<a href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/" aria-current="page">Plant Disease Detection Web Application using Fastai</a>
+									</li>
+											<li>
+					<a href="https://uaceit.com/2020/04/14/my-first-programming-language/">My First Programming Language</a>
+									</li>
+											<li>
+					<a href="https://uaceit.com/2020/03/20/api-for-dummies/">API for dummies</a>
+									</li>
+											<li>
+					<a href="https://uaceit.com/2020/03/14/create-a-wordpress-website-hosted-in-azure-using-azure-app-service/">Create a WordPress website hosted in Azure using Azure App Service</a>
+									</li>
+					</ul>
+		</div><div id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget_title">Recent Comments</h3><ul id="recentcomments"></ul></div><div id="archives-2" class="widget widget_archive"><h3 class="widget_title">Archives</h3>		<ul>
+				<li><a href="https://uaceit.com/2020/09/">September 2020</a></li>
+	<li><a href="https://uaceit.com/2020/04/">April 2020</a></li>
+	<li><a href="https://uaceit.com/2020/03/">March 2020</a></li>
+		</ul>
+			</div><div id="categories-2" class="widget widget_categories"><h3 class="widget_title">Categories</h3>		<ul>
+				<li class="cat-item cat-item-87"><a href="https://uaceit.com/category/api/">API</a>
+</li>
+	<li class="cat-item cat-item-75"><a href="https://uaceit.com/category/azure/">Azure</a>
+</li>
+	<li class="cat-item cat-item-72"><a href="https://uaceit.com/category/blynk/">Blynk</a>
+</li>
+	<li class="cat-item cat-item-134"><a href="https://uaceit.com/category/cloud-computing/">Cloud Computing</a>
+</li>
+	<li class="cat-item cat-item-76"><a href="https://uaceit.com/category/deployment/">Deployment</a>
+</li>
+	<li class="cat-item cat-item-88"><a href="https://uaceit.com/category/development/">Development</a>
+</li>
+	<li class="cat-item cat-item-16"><a href="https://uaceit.com/category/education/">Education</a>
+</li>
+	<li class="cat-item cat-item-71"><a href="https://uaceit.com/category/home-automation/">Home Automation</a>
+</li>
+	<li class="cat-item cat-item-70"><a href="https://uaceit.com/category/iot/">IOT</a>
+</li>
+	<li class="cat-item cat-item-74"><a href="https://uaceit.com/category/java/">Java</a>
+</li>
+	<li class="cat-item cat-item-104"><a href="https://uaceit.com/category/machine-learning/">Machine Learning</a>
+</li>
+	<li class="cat-item cat-item-135"><a href="https://uaceit.com/category/networks/">Networks</a>
+</li>
+	<li class="cat-item cat-item-73"><a href="https://uaceit.com/category/node-mcu/">Node MCU</a>
+</li>
+	<li class="cat-item cat-item-101"><a href="https://uaceit.com/category/programming/">Programming</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="https://uaceit.com/category/wordpress/">WordPress</a>
+</li>
+		</ul>
+			</div><div id="rss-2" class="widget widget_rss"><h3 class="widget_title"><a class="rsswidget" href="http://uaceit.com/feed"><img class="rss-widget-icon" style="border:0" width="14" height="14" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/rss.png" alt="RSS"></a> <a class="rsswidget" href="https://uaceit.com/">UAceIt’s feed</a></h3><ul><li><a class="rsswidget" href="https://uaceit.com/2020/09/23/edge-computing/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=edge-computing">Edge Computing</a></li><li><a class="rsswidget" href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=plant-disease-detection-web-application-using-fastai">Plant Disease Detection Web Application using Fastai</a></li><li><a class="rsswidget" href="https://uaceit.com/2020/04/14/my-first-programming-language/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=my-first-programming-language">My First Programming Language</a></li><li><a class="rsswidget" href="https://uaceit.com/2020/03/20/api-for-dummies/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=api-for-dummies">API for dummies</a></li><li><a class="rsswidget" href="https://uaceit.com/2020/03/14/create-a-wordpress-website-hosted-in-azure-using-azure-app-service/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=create-a-wordpress-website-hosted-in-azure-using-azure-app-service">Create a WordPress website hosted in Azure using Azure App Service</a></li><li><a class="rsswidget" href="https://uaceit.com/2020/03/14/steps-to-create-a-java-web-app-in-azure/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=steps-to-create-a-java-web-app-in-azure">Steps to create a Java web app in Azure</a></li><li><a class="rsswidget" href="https://uaceit.com/2020/03/13/4-step-home-automation-using-node-mcu-and-blynk-app/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=4-step-home-automation-using-node-mcu-and-blynk-app">4 Step Home automation using Node MCU and Blynk App</a></li></ul></div>    </aside>
+</div>             </div> 
+        </div> 
+    </section> 
+<link href="./Plant Disease Detection Web Application using Fastai – UAceIt_files/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+    #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+    /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+       We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://gmail.us4.list-manage.com/subscribe/post?u=bf1ae2c0f949a5f3ff2e42bf1&amp;id=794066668c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+    <div id="mc_embed_signup_scroll">
+    <label for="mce-EMAIL">To get regular updates of the upcoming courses, events and scholarship opportunities
+    <br>Subscribe Now</label>
+    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required="">
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_bf1ae2c0f949a5f3ff2e42bf1_794066668c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+            <div id="bottom-wrap">
+            <div class="container">
+                <div class="row clearfix">
+                                            <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="bottom-widget"><div id="media_image-1" class="widget widget_media_image"><img width="667" height="375" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/Add_a_heading__4_-removebg-preview.png" class="image wp-image-808  attachment-full size-full" alt="" style="max-width: 100%; height: auto;" srcset="https://uaceit.com/media/2020/02/Add_a_heading__4_-removebg-preview.png 667w, https://uaceit.com/media/2020/02/Add_a_heading__4_-removebg-preview-300x169.png 300w, https://uaceit.com/media/2020/02/Add_a_heading__4_-removebg-preview-352x197.png 352w, https://uaceit.com/media/2020/02/Add_a_heading__4_-removebg-preview-600x337.png 600w" sizes="(max-width: 667px) 100vw, 667px"></div></div>                        </div>
+                                                                <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="bottom-widget"><div id="nav_menu-1" class="widget widget_nav_menu"><div class="menu-footer-1-container"><ul id="menu-footer-1" class="menu"><li id="menu-item-592" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-592"><a href="https://uaceit.com/about-us/">About Us</a></li>
+<li id="menu-item-643" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-643"><a href="https://uaceit.com/contact-us/">Contact us</a></li>
+<li id="menu-item-590" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-590"><a href="https://uaceit.com/blog/">Blog</a></li>
+<li id="menu-item-591" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-591"><a href="https://uaceit.com/meet-the-team/">Meet the team</a></li>
+<li id="menu-item-642" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-642"><a href="https://uaceit.com/instructor-registration/">Instructor Registration</a></li>
+</ul></div></div></div>                        </div>
+                                                                <div class="col-sm-6 col-md-6 col-lg-3">
+                            <div class="bottom-widget"><div id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Resources</h3><div class="menu-footer-3-container"><ul id="menu-footer-3" class="menu"><li id="menu-item-566" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-566"><a href="https://uaceit.com/ace-stories/">Student Success</a></li>
+<li id="menu-item-569" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-569"><a href="https://uaceit.com/scholarships">Scholarships</a></li>
+<li id="menu-item-818" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-818"><a href="https://uaceit.com/instructor-revenue-model/">Instructor revenue model</a></li>
+<li id="menu-item-819" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-819"><a href="https://uaceit.com/faq-2/">FAQ</a></li>
+</ul></div></div></div>                        </div>
+                                                        </div>
+            </div>
+        </div>
+                            <footer id="footer-wrap"> 
+                <div class="container">
+                    <div class="row clearfix">
+                                                    <div class="col-12 col-lg-6">
+                                <div class="footer-copyright text-center text-lg-left">
+                                                                            © 2020 UAceIt. All Rights Reserved.                                                                    </div> 
+                            </div> 
+                                                
+                                                                                    <div class="col-12 col-lg-6 text-center text-lg-right">
+                                    <ul id="menu-footer-menu" class="menu-footer-menu"><li id="menu-item-1289" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1289"><a href="https://uaceit.com/contact-us/">Contact us</a></li>
+<li id="menu-item-1232" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1232"><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/UAceIt-108350154123524/"><i class="fab fa-facebook-square"></i></a></li>
+<li id="menu-item-1235" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1235"><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/itsuaceit/"><i class="fab fa-instagram"></i></a></li>
+<li id="menu-item-1234" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1234"><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/uaceit-ace-at-your-own-pace-0ba0b01a5/"><i class="fab fa-linkedin"></i></a></li>
+<li id="menu-item-1256" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1256"><a target="_blank" rel="noopener noreferrer" href="https://twitter.com/uaceit"><i class="fab fa-twitter-square"></i></a></li>
+<li id="menu-item-1374" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1374"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/channel/UCLC92T-FC_gk5dl3WCDRk3A"><i class="fab fa-youtube"></i></a></li>
+</ul>                                </div>
+                             
+                                            </div>    
+                </div>    
+            </footer>    
+            </div> 
+    
+
+    <div class="edumax-signin-modal-popup" style="display: none;">
+        <div class="edumax-modal-overlay"></div>
+        <div class="edumax-signin-popup-inner" data-edumax-login-tab="tab-1">
+            <a href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/#" class="edumax-login-modal-close fas fa-times"></a>
+            <div class="edumax-signin-popup-body">
+                <div class="edumax-signin-modal-form">
+                    <h2>Sign In</h2>
+                    <form action="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/login" id="login" method="post">
+                        <p class="status" style="display: none;"></p>
+                        <input type="text" id="username2" name="username" placeholder="Username">
+                        <input type="password" id="password2" name="password" placeholder="Password">
+                        <label for="rememberme" class="edumax-login-remember">
+                            <input name="rememberme" type="checkbox" id="rememberme" value="forever">
+                            <span class="fas fa-check"></span>Remember Me                        </label>
+                        <button class="edumax_btn btn-fill" type="submit">Login Now</button>
+                        <input type="hidden" id="security2" name="security2" value="a38c87247c"><input type="hidden" name="_wp_http_referer" value="/2020/04/15/plant-disease-detection-web-application-using-fastai/">                    </form>
+
+                </div>
+                <div class="edumax-signin-modal-right">
+                                        <p>If you don’t already have an account click the button below to create your account.</p>
+                    <a class="edumax-login-tab-toggle edumax_btn btn-fill bg-black" href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/#tab-2">Create New Account</a>
+                                        <div class="edumax-login-popup-divider">OR</div>
+                    
+                    <div class="eduamx-signin-modal-social">
+                                                    <a href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/#" class="google-login edumax_btn btn-fill bg-google" id="gSignIn2"> <i class="fab fa-google"></i> Login with Google</a>
+                                                                                            </div>
+                </div>
+            </div>
+            <div class="edumax-signin-popup-footer">
+                So you can’t get in to your account? Did you <a href="https://uaceit.com/my-account/lost-password/"> forget your password? </a>            </div>
+        </div> 
+        <div class="edumax-signin-popup-inner" data-edumax-login-tab="tab-2" style="display: none">
+            <a href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/#" class="edumax-login-modal-close fas fa-times"></a>
+            <div class="edumax-signin-popup-body">
+                <div class="edumax-signin-modal-form">
+                    <h2>Registration</h2>
+                    <form form="" id="registerform" action="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/login" method="post">
+                        <p class="status" style="display: none;"></p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="text" id="nickname" name="nickname" placeholder="Nickname">
+                                <input type="text" id="username" name="username" placeholder="Username">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" id="email" name="email" placeholder="Email">
+                                <input type="password" id="password" name="password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="edumax_btn btn-fill register_button" type="submit">Registration</button>
+                                <input type="hidden" id="security" name="security" value="83d2405eab"><input type="hidden" name="_wp_http_referer" value="/2020/04/15/plant-disease-detection-web-application-using-fastai/">                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="edumax-signin-popup-footer">
+                Already have an account? <a class="edumax-login-tab-toggle" href="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/#tab-1"> Sign In </a>            </div>
+        </div>
+
+    </div>
+<div class="tutor-cart-box-login-form" style="display: none;"><span class="login-overlay-close"></span><div class="tutor-cart-box-login-form-inner"><button class="tutor-popup-form-close tutor-icon-line-cross"></button>
+<div class="tutor-single-course-segment tutor-course-login-wrap">
+    <div class="course-login-title">
+        <h4>Login</h4>
+    </div>
+    <div class="tutor-single-course-login-form">
+	    
+<div class="tutor-login-form-wrap">
+	
+    
+		<form name="loginform" id="loginform" method="post">
+	
+		<input type="hidden" id="_wpnonce" name="_wpnonce" value="aa5913c4e8"><input type="hidden" name="_wp_http_referer" value="/2020/04/15/plant-disease-detection-web-application-using-fastai/">
+		
+		<input type="hidden" name="tutor_action" value="tutor_user_login">
+			<p class="login-username">
+				<input type="text" placeholder="Username or Email Address" name="log" id="user_login" class="input" value="" size="20">
+			</p>
+			<p class="login-password">
+				<input type="password" placeholder="Password" name="pwd" id="user_pass" class="input" value="" size="20">
+			</p>
+			<div class="tutor-login-rememeber-wrap">
+			<p class="login-remember"><label><input name="rememberme" type="checkbox" id="rememberme" value="forever"> Remember Me</label></p>
+			
+			    <a href="https://uaceit.com/dashboard/retrieve-password">Forgot Password?</a>
+			</div>
+			<p class="login-submit">
+				<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary" value="Log In">
+				<input type="hidden" name="redirect_to" value="https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/">
+			</p>
+			<p class="tutor-form-register-wrap">
+			    <a href="https://uaceit.com/student-registration/?redirect_to=https://uaceit.com/2020/04/15/plant-disease-detection-web-application-using-fastai/">Create a new account</a>
+            </p>
+		</form></div>
+    </div>
+</div>
+</div></div><script type="text/javascript"> var google_client_ID = '202701223794-adj29uqiiel0f1agj6e1kpq9tk8ivpsr.apps.googleusercontent.com' </script>	<script type="text/javascript">
+        var googleUser = {};
+        var startApp = function() {
+            gapi.load('auth2', function(){
+                // Retrieve the singleton for the GoogleAuth library and set up the client.
+                auth2 = gapi.auth2.init({
+                    //373496230444-uf119vqdp0hsrkujdjt6ucms3scp4v0d.apps.googleusercontent.com
+                    client_id: google_client_ID,
+                    cookiepolicy: 'single_host_origin',
+                    // Request scopes in addition to 'profile' and 'email'
+                    //scope: 'additional_scope'
+                });
+                attachSignin(document.getElementById('gSignIn2'));
+            });
+        };
+        function attachSignin(element) {
+            /*console.log(element.id);*/
+            auth2.attachClickHandler(element, {},
+                function(googleUser) {
+                    jQuery(document).ready(function($){
+                        var profile = googleUser.getBasicProfile();
+                        var id_token = googleUser.getAuthResponse().id_token;
+                        //Google AJAX Login
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'json',
+                            url: ajax_object.ajaxurl,
+                            data: {
+                                'action': 'ajaxgooglelogin', //calls wp_ajax_nopriv_ajaxlogin
+                                'id_token': id_token,
+                                'useremail': profile.getEmail(),
+                                'userfirst': profile.getGivenName(),
+                                'userlast': profile.getFamilyName(),
+                                'security': $( 'form#login #security2').val() },
+                            success: function(data){
+                                //$('form#login div.login-error').text(data.message);
+                                if (data.loggedin == true){
+                                    $('form#login div.login-error').removeClass('alert-danger').addClass('alert-success');
+                                    $('form#login div.login-error').text(data.message);
+                                    document.location.href = ajax_object.redirecturl;
+                                }else{
+                                    $('form#login div.login-error').removeClass('alert-success').addClass('alert-danger');
+                                    $('form#login div.login-error').text(data.message);
+                                }
+                                if($('.login-error').text() == ''){
+                                    $('form#login div.login-error').hide();
+                                }else{
+                                    $('form#login div.login-error').show();
+                                }
+                            }
+                        });
+                    });
+                }, function(error) {
+                    //alert(JSON.stringify(error, undefined, 2));
+                });
+        }
+        startApp();
+	</script>
+		<script type="text/html" id="tmpl-media-frame">
+		<div class="media-frame-title" id="media-frame-title"></div>
+		<h2 class="media-frame-menu-heading">Actions</h2>
+		<button type="button" class="button button-link media-frame-menu-toggle" aria-expanded="false">
+			Menu			<span class="dashicons dashicons-arrow-down" aria-hidden="true"></span>
+		</button>
+		<div class="media-frame-menu"></div>
+		<div class="media-frame-tab-panel">
+			<div class="media-frame-router"></div>
+			<div class="media-frame-content"></div>
+		</div>
+		<h2 class="media-frame-actions-heading screen-reader-text">
+		Selected media actions		</h2>
+		<div class="media-frame-toolbar"></div>
+		<div class="media-frame-uploader"></div>
+	</script>
+		<script type="text/html" id="tmpl-media-modal">
+		<div tabindex="0" class="media-modal wp-core-ui" role="dialog" aria-labelledby="media-frame-title">
+			<# if ( data.hasCloseButton ) { #>
+				<button type="button" class="media-modal-close"><span class="media-modal-icon"><span class="screen-reader-text">Close dialogue</span></span></button>
+			<# } #>
+			<div class="media-modal-content" role="document"></div>
+		</div>
+		<div class="media-modal-backdrop"></div>
+	</script>
+		<script type="text/html" id="tmpl-uploader-window">
+		<div class="uploader-window-content">
+			<div class="uploader-editor-title">Drop files to upload</div>
+		</div>
+	</script>
+		<script type="text/html" id="tmpl-uploader-editor">
+		<div class="uploader-editor-content">
+			<div class="uploader-editor-title">Drop files to upload</div>
+		</div>
+	</script>
+		<script type="text/html" id="tmpl-uploader-inline">
+		<# var messageClass = data.message ? 'has-upload-message' : 'no-upload-message'; #>
+		<# if ( data.canClose ) { #>
+		<button class="close dashicons dashicons-no"><span class="screen-reader-text">Close uploader</span></button>
+		<# } #>
+		<div class="uploader-inline-content {{ messageClass }}">
+		<# if ( data.message ) { #>
+			<h2 class="upload-message">{{ data.message }}</h2>
+		<# } #>
+					<div class="upload-ui">
+				<h2 class="upload-instructions drop-instructions">Drop files to upload</h2>
+				<p class="upload-instructions drop-instructions">or</p>
+				<button type="button" class="browser button button-hero">Select Files</button>
+			</div>
+			<div class="upload-inline-status"></div>
+			<div class="post-upload-ui">
+				
+				<p class="max-upload-size">
+				Maximum upload file size: 128 MB.				</p>
+				<# if ( data.suggestedWidth && data.suggestedHeight ) { #>
+					<p class="suggested-dimensions">
+						Suggested image dimensions: {{data.suggestedWidth}} by {{data.suggestedHeight}} pixels.					</p>
+				<# } #>
+							</div>
+				</div>
+	</script>
+		<script type="text/html" id="tmpl-media-library-view-switcher">
+		<a href="/2020/04/15/plant-disease-detection-web-application-using-fastai/?mode=list" class="view-list">
+			<span class="screen-reader-text">List View</span>
+		</a>
+		<a href="/2020/04/15/plant-disease-detection-web-application-using-fastai/?mode=grid" class="view-grid current" aria-current="page">
+			<span class="screen-reader-text">Grid View</span>
+		</a>
+	</script>
+		<script type="text/html" id="tmpl-uploader-status">
+		<h2>Uploading</h2>
+		<button type="button" class="button-link upload-dismiss-errors"><span class="screen-reader-text">Dismiss Errors</span></button>
+		<div class="media-progress-bar"><div></div></div>
+		<div class="upload-details">
+			<span class="upload-count">
+				<span class="upload-index"></span> / <span class="upload-total"></span>
+			</span>
+			<span class="upload-detail-separator">&ndash;</span>
+			<span class="upload-filename"></span>
+		</div>
+		<div class="upload-errors"></div>
+	</script>
+		<script type="text/html" id="tmpl-uploader-status-error">
+		<span class="upload-error-filename">{{{ data.filename }}}</span>
+		<span class="upload-error-message">{{ data.message }}</span>
+	</script>
+		<script type="text/html" id="tmpl-edit-attachment-frame">
+		<div class="edit-media-header">
+			<button class="left dashicons"<# if ( ! data.hasPrevious ) { #> disabled<# } #>><span class="screen-reader-text">Edit previous media item</span></button>
+			<button class="right dashicons"<# if ( ! data.hasNext ) { #> disabled<# } #>><span class="screen-reader-text">Edit next media item</span></button>
+			<button type="button" class="media-modal-close"><span class="media-modal-icon"><span class="screen-reader-text">Close dialogue</span></span></button>
+		</div>
+		<div class="media-frame-title"></div>
+		<div class="media-frame-content"></div>
+	</script>
+		<script type="text/html" id="tmpl-attachment-details-two-column">
+		<div class="attachment-media-view {{ data.orientation }}">
+			<h2 class="screen-reader-text">Attachment Preview</h2>
+			<div class="thumbnail thumbnail-{{ data.type }}">
+				<# if ( data.uploading ) { #>
+					<div class="media-progress-bar"><div></div></div>
+				<# } else if ( data.sizes && data.sizes.large ) { #>
+					<img class="details-image" src="{{ data.sizes.large.url }}" draggable="false" alt="" />
+				<# } else if ( data.sizes && data.sizes.full ) { #>
+					<img class="details-image" src="{{ data.sizes.full.url }}" draggable="false" alt="" />
+				<# } else if ( -1 === jQuery.inArray( data.type, [ 'audio', 'video' ] ) ) { #>
+					<img class="details-image icon" src="{{ data.icon }}" draggable="false" alt="" />
+				<# } #>
+				<# if ( 'audio' === data.type ) { #>
+				<div class="wp-media-wrapper">
+					<audio style="visibility: hidden" controls class="wp-audio-shortcode" width="100%" preload="none">
+						<source type="{{ data.mime }}" src="{{ data.url }}"/>
+					</audio>
+				</div>
+				<# } else if ( 'video' === data.type ) {
+					var w_rule = '';
+					if ( data.width ) {
+						w_rule = 'width: ' + data.width + 'px;';
+					} else if ( wp.media.view.settings.contentWidth ) {
+						w_rule = 'width: ' + wp.media.view.settings.contentWidth + 'px;';
+					}
+				#>
+				<div style="{{ w_rule }}" class="wp-media-wrapper wp-video">
+					<video controls="controls" class="wp-video-shortcode" preload="metadata"
+						<# if ( data.width ) { #>width="{{ data.width }}"<# } #>
+						<# if ( data.height ) { #>height="{{ data.height }}"<# } #>
+						<# if ( data.image && data.image.src !== data.icon ) { #>poster="{{ data.image.src }}"<# } #>>
+						<source type="{{ data.mime }}" src="{{ data.url }}"/>
+					</video>
+				</div>
+				<# } #>
+				<div class="attachment-actions">
+					<# if ( 'image' === data.type && ! data.uploading && data.sizes && data.can.save ) { #>
+					<button type="button" class="button edit-attachment">Edit Image</button>
+					<# } else if ( 'pdf' === data.subtype && data.sizes ) { #>
+					<p>Document Preview</p>
+					<# } #>
+				</div>
+			</div>
+		</div>
+		<div class="attachment-info">
+			<span class="settings-save-status" role="status">
+				<span class="spinner"></span>
+				<span class="saved">Saved.</span>
+			</span>
+			<div class="details">
+				<h2 class="screen-reader-text">Details</h2>
+				<div class="filename"><strong>File name:</strong> {{ data.filename }}</div>
+				<div class="filename"><strong>File type:</strong> {{ data.mime }}</div>
+				<div class="uploaded"><strong>Uploaded on:</strong> {{ data.dateFormatted }}</div>
+				<div class="file-size"><strong>File size:</strong> {{ data.filesizeHumanReadable }}</div>
+				<# if ( 'image' === data.type && ! data.uploading ) { #>
+					<# if ( data.width && data.height ) { #>
+						<div class="dimensions"><strong>Dimensions:</strong>
+							{{ data.width }} by {{ data.height }} pixels						</div>
+					<# } #>
+					<# if ( data.originalImageURL && data.originalImageName ) { #>
+						Original image:						<a href="{{ data.originalImageURL }}">{{data.originalImageName}}</a>
+					<# } #>
+				<# } #>
+				<# if ( data.fileLength && data.fileLengthHumanReadable ) { #>
+					<div class="file-length"><strong>Length:</strong>
+						<span aria-hidden="true">{{ data.fileLength }}</span>
+						<span class="screen-reader-text">{{ data.fileLengthHumanReadable }}</span>
+					</div>
+				<# } #>
+				<# if ( 'audio' === data.type && data.meta.bitrate ) { #>
+					<div class="bitrate">
+						<strong>Bitrate:</strong> {{ Math.round( data.meta.bitrate / 1000 ) }}kb/s
+						<# if ( data.meta.bitrate_mode ) { #>
+						{{ ' ' + data.meta.bitrate_mode.toUpperCase() }}
+						<# } #>
+					</div>
+				<# } #>
+				<div class="compat-meta">
+					<# if ( data.compat && data.compat.meta ) { #>
+						{{{ data.compat.meta }}}
+					<# } #>
+				</div>
+			</div>
+			<div class="settings">
+				<# var maybeReadOnly = data.can.save || data.allowLocalEdits ? '' : 'readonly'; #>
+				<# if ( 'image' === data.type ) { #>
+					<span class="setting has-description" data-setting="alt">
+						<label for="attachment-details-two-column-alt-text" class="name">Alternative Text</label>
+						<input type="text" id="attachment-details-two-column-alt-text" value="{{ data.alt }}" aria-describedby="alt-text-description" {{ maybeReadOnly }} />
+					</span>
+					<p class="description" id="alt-text-description"><a href="https://www.w3.org/WAI/tutorials/images/decision-tree" target="_blank" rel="noopener noreferrer">Describe the purpose of the image<span class="screen-reader-text"> (opens in a new tab)</span></a>. Leave empty if the image is purely decorative.</p>
+				<# } #>
+								<span class="setting" data-setting="title">
+					<label for="attachment-details-two-column-title" class="name">Title</label>
+					<input type="text" id="attachment-details-two-column-title" value="{{ data.title }}" {{ maybeReadOnly }} />
+				</span>
+								<# if ( 'audio' === data.type ) { #>
+								<span class="setting" data-setting="artist">
+					<label for="attachment-details-two-column-artist" class="name">Artist</label>
+					<input type="text" id="attachment-details-two-column-artist" value="{{ data.artist || data.meta.artist || '' }}" />
+				</span>
+								<span class="setting" data-setting="album">
+					<label for="attachment-details-two-column-album" class="name">Album</label>
+					<input type="text" id="attachment-details-two-column-album" value="{{ data.album || data.meta.album || '' }}" />
+				</span>
+								<# } #>
+				<span class="setting" data-setting="caption">
+					<label for="attachment-details-two-column-caption" class="name">Caption</label>
+					<textarea id="attachment-details-two-column-caption" {{ maybeReadOnly }}>{{ data.caption }}</textarea>
+				</span>
+				<span class="setting" data-setting="description">
+					<label for="attachment-details-two-column-description" class="name">Description</label>
+					<textarea id="attachment-details-two-column-description" {{ maybeReadOnly }}>{{ data.description }}</textarea>
+				</span>
+				<span class="setting">
+					<span class="name">Uploaded By</span>
+					<span class="value">{{ data.authorName }}</span>
+				</span>
+				<# if ( data.uploadedToTitle ) { #>
+					<span class="setting">
+						<span class="name">Uploaded To</span>
+						<# if ( data.uploadedToLink ) { #>
+							<span class="value"><a href="{{ data.uploadedToLink }}">{{ data.uploadedToTitle }}</a></span>
+						<# } else { #>
+							<span class="value">{{ data.uploadedToTitle }}</span>
+						<# } #>
+					</span>
+				<# } #>
+				<span class="setting" data-setting="url">
+					<label for="attachment-details-two-column-copy-link" class="name">Copy Link</label>
+					<input type="text" id="attachment-details-two-column-copy-link" value="{{ data.url }}" readonly />
+				</span>
+				<div class="attachment-compat"></div>
+			</div>
+			<div class="actions">
+				<a class="view-attachment" href="{{ data.link }}">View attachment page</a>
+				<# if ( data.can.save ) { #> |
+					<a href="{{ data.editLink }}">Edit more details</a>
+				<# } #>
+				<# if ( ! data.uploading && data.can.remove ) { #> |
+											<button type="button" class="button-link delete-attachment">Delete Permanently</button>
+									<# } #>
+			</div>
+		</div>
+	</script>
+		<script type="text/html" id="tmpl-attachment">
+		<div class="attachment-preview js--select-attachment type-{{ data.type }} subtype-{{ data.subtype }} {{ data.orientation }}">
+			<div class="thumbnail">
+				<# if ( data.uploading ) { #>
+					<div class="media-progress-bar"><div style="width: {{ data.percent }}%"></div></div>
+				<# } else if ( 'image' === data.type && data.sizes ) { #>
+					<div class="centered">
+						<img src="{{ data.size.url }}" draggable="false" alt="" />
+					</div>
+				<# } else { #>
+					<div class="centered">
+						<# if ( data.image && data.image.src && data.image.src !== data.icon ) { #>
+							<img src="{{ data.image.src }}" class="thumbnail" draggable="false" alt="" />
+						<# } else if ( data.sizes && data.sizes.medium ) { #>
+							<img src="{{ data.sizes.medium.url }}" class="thumbnail" draggable="false" alt="" />
+						<# } else { #>
+							<img src="{{ data.icon }}" class="icon" draggable="false" alt="" />
+						<# } #>
+					</div>
+					<div class="filename">
+						<div>{{ data.filename }}</div>
+					</div>
+				<# } #>
+			</div>
+			<# if ( data.buttons.close ) { #>
+				<button type="button" class="button-link attachment-close media-modal-icon"><span class="screen-reader-text">Remove</span></button>
+			<# } #>
+		</div>
+		<# if ( data.buttons.check ) { #>
+			<button type="button" class="check" tabindex="-1"><span class="media-modal-icon"></span><span class="screen-reader-text">Deselect</span></button>
+		<# } #>
+		<#
+		var maybeReadOnly = data.can.save || data.allowLocalEdits ? '' : 'readonly';
+		if ( data.describe ) {
+			if ( 'image' === data.type ) { #>
+				<input type="text" value="{{ data.caption }}" class="describe" data-setting="caption"
+					aria-label="Caption"
+					placeholder="Caption&hellip;" {{ maybeReadOnly }} />
+			<# } else { #>
+				<input type="text" value="{{ data.title }}" class="describe" data-setting="title"
+					<# if ( 'video' === data.type ) { #>
+						aria-label="Video title"
+						placeholder="Video title&hellip;"
+					<# } else if ( 'audio' === data.type ) { #>
+						aria-label="Audio title"
+						placeholder="Audio title&hellip;"
+					<# } else { #>
+						aria-label="Media title"
+						placeholder="Media title&hellip;"
+					<# } #> {{ maybeReadOnly }} />
+			<# }
+		} #>
+	</script>
+		<script type="text/html" id="tmpl-attachment-details">
+		<h2>
+			Attachment Details			<span class="settings-save-status" role="status">
+				<span class="spinner"></span>
+				<span class="saved">Saved.</span>
+			</span>
+		</h2>
+		<div class="attachment-info">
+			<div class="thumbnail thumbnail-{{ data.type }}">
+				<# if ( data.uploading ) { #>
+					<div class="media-progress-bar"><div></div></div>
+				<# } else if ( 'image' === data.type && data.sizes ) { #>
+					<img src="{{ data.size.url }}" draggable="false" alt="" />
+				<# } else { #>
+					<img src="{{ data.icon }}" class="icon" draggable="false" alt="" />
+				<# } #>
+			</div>
+			<div class="details">
+				<div class="filename">{{ data.filename }}</div>
+				<div class="uploaded">{{ data.dateFormatted }}</div>
+				<div class="file-size">{{ data.filesizeHumanReadable }}</div>
+				<# if ( 'image' === data.type && ! data.uploading ) { #>
+					<# if ( data.width && data.height ) { #>
+						<div class="dimensions">
+							{{ data.width }} by {{ data.height }} pixels						</div>
+					<# } #>
+					<# if ( data.originalImageURL && data.originalImageName ) { #>
+						Original image:						<a href="{{ data.originalImageURL }}">{{data.originalImageName}}</a>
+					<# } #>
+					<# if ( data.can.save && data.sizes ) { #>
+						<a class="edit-attachment" href="{{ data.editLink }}&amp;image-editor" target="_blank">Edit Image</a>
+					<# } #>
+				<# } #>
+				<# if ( data.fileLength && data.fileLengthHumanReadable ) { #>
+					<div class="file-length">Length:						<span aria-hidden="true">{{ data.fileLength }}</span>
+						<span class="screen-reader-text">{{ data.fileLengthHumanReadable }}</span>
+					</div>
+				<# } #>
+				<# if ( ! data.uploading && data.can.remove ) { #>
+											<button type="button" class="button-link delete-attachment">Delete Permanently</button>
+									<# } #>
+				<div class="compat-meta">
+					<# if ( data.compat && data.compat.meta ) { #>
+						{{{ data.compat.meta }}}
+					<# } #>
+				</div>
+			</div>
+		</div>
+		<# var maybeReadOnly = data.can.save || data.allowLocalEdits ? '' : 'readonly'; #>
+		<# if ( 'image' === data.type ) { #>
+			<span class="setting has-description" data-setting="alt">
+				<label for="attachment-details-alt-text" class="name">Alt Text</label>
+				<input type="text" id="attachment-details-alt-text" value="{{ data.alt }}" aria-describedby="alt-text-description" {{ maybeReadOnly }} />
+			</span>
+			<p class="description" id="alt-text-description"><a href="https://www.w3.org/WAI/tutorials/images/decision-tree" target="_blank" rel="noopener noreferrer">Describe the purpose of the image<span class="screen-reader-text"> (opens in a new tab)</span></a>. Leave empty if the image is purely decorative.</p>
+		<# } #>
+				<span class="setting" data-setting="title">
+			<label for="attachment-details-title" class="name">Title</label>
+			<input type="text" id="attachment-details-title" value="{{ data.title }}" {{ maybeReadOnly }} />
+		</span>
+				<# if ( 'audio' === data.type ) { #>
+				<span class="setting" data-setting="artist">
+			<label for="attachment-details-artist" class="name">Artist</label>
+			<input type="text" id="attachment-details-artist" value="{{ data.artist || data.meta.artist || '' }}" />
+		</span>
+				<span class="setting" data-setting="album">
+			<label for="attachment-details-album" class="name">Album</label>
+			<input type="text" id="attachment-details-album" value="{{ data.album || data.meta.album || '' }}" />
+		</span>
+				<# } #>
+		<span class="setting" data-setting="caption">
+			<label for="attachment-details-caption" class="name">Caption</label>
+			<textarea id="attachment-details-caption" {{ maybeReadOnly }}>{{ data.caption }}</textarea>
+		</span>
+		<span class="setting" data-setting="description">
+			<label for="attachment-details-description" class="name">Description</label>
+			<textarea id="attachment-details-description" {{ maybeReadOnly }}>{{ data.description }}</textarea>
+		</span>
+		<span class="setting" data-setting="url">
+			<label for="attachment-details-copy-link" class="name">Copy Link</label>
+			<input type="text" id="attachment-details-copy-link" value="{{ data.url }}" readonly />
+		</span>
+	</script>
+		<script type="text/html" id="tmpl-media-selection">
+		<div class="selection-info">
+			<span class="count"></span>
+			<# if ( data.editable ) { #>
+				<button type="button" class="button-link edit-selection">Edit Selection</button>
+			<# } #>
+			<# if ( data.clearable ) { #>
+				<button type="button" class="button-link clear-selection">Clear</button>
+			<# } #>
+		</div>
+		<div class="selection-view"></div>
+	</script>
+		<script type="text/html" id="tmpl-attachment-display-settings">
+		<h2>Attachment Display Settings</h2>
+		<# if ( 'image' === data.type ) { #>
+			<span class="setting align">
+				<label for="attachment-display-settings-alignment" class="name">Alignment</label>
+				<select id="attachment-display-settings-alignment" class="alignment"
+					data-setting="align"
+					<# if ( data.userSettings ) { #>
+						data-user-setting="align"
+					<# } #>>
+					<option value="left">
+						Left					</option>
+					<option value="center">
+						Centre					</option>
+					<option value="right">
+						Right					</option>
+					<option value="none" selected>
+						None					</option>
+				</select>
+			</span>
+		<# } #>
+		<span class="setting">
+			<label for="attachment-display-settings-link-to" class="name">
+				<# if ( data.model.canEmbed ) { #>
+					Embed or Link				<# } else { #>
+					Link To				<# } #>
+			</label>
+			<select id="attachment-display-settings-link-to" class="link-to"
+				data-setting="link"
+				<# if ( data.userSettings && ! data.model.canEmbed ) { #>
+					data-user-setting="urlbutton"
+				<# } #>>
+			<# if ( data.model.canEmbed ) { #>
+				<option value="embed" selected>
+					Embed Media Player				</option>
+				<option value="file">
+			<# } else { #>
+				<option value="none" selected>
+					None				</option>
+				<option value="file">
+			<# } #>
+				<# if ( data.model.canEmbed ) { #>
+					Link to Media File				<# } else { #>
+					Media File				<# } #>
+				</option>
+				<option value="post">
+				<# if ( data.model.canEmbed ) { #>
+					Link to Attachment Page				<# } else { #>
+					Attachment Page				<# } #>
+				</option>
+			<# if ( 'image' === data.type ) { #>
+				<option value="custom">
+					Custom URL				</option>
+			<# } #>
+			</select>
+		</span>
+		<span class="setting">
+			<label for="attachment-display-settings-link-to-custom" class="name">URL</label>
+			<input type="text" id="attachment-display-settings-link-to-custom" class="link-to-custom" data-setting="linkUrl" />
+		</span>
+		<# if ( 'undefined' !== typeof data.sizes ) { #>
+			<span class="setting">
+				<label for="attachment-display-settings-size" class="name">Size</label>
+				<select id="attachment-display-settings-size" class="size" name="size"
+					data-setting="size"
+					<# if ( data.userSettings ) { #>
+						data-user-setting="imgsize"
+					<# } #>>
+											<#
+						var size = data.sizes['thumbnail'];
+						if ( size ) { #>
+							<option value="thumbnail" >
+								Thumbnail &ndash; {{ size.width }} &times; {{ size.height }}
+							</option>
+						<# } #>
+											<#
+						var size = data.sizes['medium'];
+						if ( size ) { #>
+							<option value="medium" >
+								Medium &ndash; {{ size.width }} &times; {{ size.height }}
+							</option>
+						<# } #>
+											<#
+						var size = data.sizes['large'];
+						if ( size ) { #>
+							<option value="large" >
+								Large &ndash; {{ size.width }} &times; {{ size.height }}
+							</option>
+						<# } #>
+											<#
+						var size = data.sizes['full'];
+						if ( size ) { #>
+							<option value="full"  selected='selected'>
+								Full Size &ndash; {{ size.width }} &times; {{ size.height }}
+							</option>
+						<# } #>
+									</select>
+			</span>
+		<# } #>
+	</script>
+		<script type="text/html" id="tmpl-gallery-settings">
+		<h2>Gallery Settings</h2>
+		<span class="setting">
+			<label for="gallery-settings-link-to" class="name">Link To</label>
+			<select id="gallery-settings-link-to" class="link-to"
+				data-setting="link"
+				<# if ( data.userSettings ) { #>
+					data-user-setting="urlbutton"
+				<# } #>>
+				<option value="post" <# if ( ! wp.media.galleryDefaults.link || 'post' == wp.media.galleryDefaults.link ) {
+					#>selected="selected"<# }
+				#>>
+					Attachment Page				</option>
+				<option value="file" <# if ( 'file' == wp.media.galleryDefaults.link ) { #>selected="selected"<# } #>>
+					Media File				</option>
+				<option value="none" <# if ( 'none' == wp.media.galleryDefaults.link ) { #>selected="selected"<# } #>>
+					None				</option>
+			</select>
+		</span>
+		<span class="setting">
+			<label for="gallery-settings-columns" class="name select-label-inline">Columns</label>
+			<select id="gallery-settings-columns" class="columns" name="columns"
+				data-setting="columns">
+									<option value="1" <#
+						if ( 1 == wp.media.galleryDefaults.columns ) { #>selected="selected"<# }
+					#>>
+						1					</option>
+									<option value="2" <#
+						if ( 2 == wp.media.galleryDefaults.columns ) { #>selected="selected"<# }
+					#>>
+						2					</option>
+									<option value="3" <#
+						if ( 3 == wp.media.galleryDefaults.columns ) { #>selected="selected"<# }
+					#>>
+						3					</option>
+									<option value="4" <#
+						if ( 4 == wp.media.galleryDefaults.columns ) { #>selected="selected"<# }
+					#>>
+						4					</option>
+									<option value="5" <#
+						if ( 5 == wp.media.galleryDefaults.columns ) { #>selected="selected"<# }
+					#>>
+						5					</option>
+									<option value="6" <#
+						if ( 6 == wp.media.galleryDefaults.columns ) { #>selected="selected"<# }
+					#>>
+						6					</option>
+									<option value="7" <#
+						if ( 7 == wp.media.galleryDefaults.columns ) { #>selected="selected"<# }
+					#>>
+						7					</option>
+									<option value="8" <#
+						if ( 8 == wp.media.galleryDefaults.columns ) { #>selected="selected"<# }
+					#>>
+						8					</option>
+									<option value="9" <#
+						if ( 9 == wp.media.galleryDefaults.columns ) { #>selected="selected"<# }
+					#>>
+						9					</option>
+							</select>
+		</span>
+		<span class="setting">
+			<input type="checkbox" id="gallery-settings-random-order" data-setting="_orderbyRandom" />
+			<label for="gallery-settings-random-order" class="checkbox-label-inline">Random Order</label>
+		</span>
+		<span class="setting size">
+			<label for="gallery-settings-size" class="name">Size</label>
+			<select id="gallery-settings-size" class="size" name="size"
+				data-setting="size"
+				<# if ( data.userSettings ) { #>
+					data-user-setting="imgsize"
+				<# } #>
+				>
+									<option value="thumbnail">
+						Thumbnail					</option>
+									<option value="medium">
+						Medium					</option>
+									<option value="large">
+						Large					</option>
+									<option value="full">
+						Full Size					</option>
+							</select>
+		</span>
+	</script>
+		<script type="text/html" id="tmpl-playlist-settings">
+		<h2>Playlist Settings</h2>
+		<# var emptyModel = _.isEmpty( data.model ),
+			isVideo = 'video' === data.controller.get('library').props.get('type'); #>
+		<span class="setting">
+			<input type="checkbox" id="playlist-settings-show-list" data-setting="tracklist" <# if ( emptyModel ) { #>
+				checked="checked"
+			<# } #> />
+			<label for="playlist-settings-show-list" class="checkbox-label-inline">
+				<# if ( isVideo ) { #>
+				Show Video List				<# } else { #>
+				Show Tracklist				<# } #>
+			</label>
+		</span>
+		<# if ( ! isVideo ) { #>
+		<span class="setting">
+			<input type="checkbox" id="playlist-settings-show-artist" data-setting="artists" <# if ( emptyModel ) { #>
+				checked="checked"
+			<# } #> />
+			<label for="playlist-settings-show-artist" class="checkbox-label-inline">
+				Show Artist Name in Tracklist			</label>
+		</span>
+		<# } #>
+		<span class="setting">
+			<input type="checkbox" id="playlist-settings-show-images" data-setting="images" <# if ( emptyModel ) { #>
+				checked="checked"
+			<# } #> />
+			<label for="playlist-settings-show-images" class="checkbox-label-inline">
+				Show Images			</label>
+		</span>
+	</script>
+		<script type="text/html" id="tmpl-embed-link-settings">
+		<span class="setting link-text">
+			<label for="embed-link-settings-link-text" class="name">Link Text</label>
+			<input type="text" id="embed-link-settings-link-text" class="alignment" data-setting="linkText" />
+		</span>
+		<div class="embed-container" style="display: none;">
+			<div class="embed-preview"></div>
+		</div>
+	</script>
+		<script type="text/html" id="tmpl-embed-image-settings">
+		<div class="wp-clearfix">
+			<div class="thumbnail">
+				<img src="{{ data.model.url }}" draggable="false" alt="" />
+			</div>
+		</div>
+		<span class="setting alt-text has-description">
+			<label for="embed-image-settings-alt-text" class="name">Alternative Text</label>
+			<input type="text" id="embed-image-settings-alt-text" data-setting="alt" aria-describedby="alt-text-description" />
+		</span>
+		<p class="description" id="alt-text-description"><a href="https://www.w3.org/WAI/tutorials/images/decision-tree" target="_blank" rel="noopener noreferrer">Describe the purpose of the image<span class="screen-reader-text"> (opens in a new tab)</span></a>. Leave empty if the image is purely decorative.</p>
+					<span class="setting caption">
+				<label for="embed-image-settings-caption" class="name">Caption</label>
+				<textarea id="embed-image-settings-caption" data-setting="caption" />
+			</span>
+		
+		<fieldset class="setting-group">
+			<legend class="name">Align</legend>
+			<span class="setting align">
+				<span class="button-group button-large" data-setting="align">
+					<button class="button" value="left">
+						Left					</button>
+					<button class="button" value="center">
+						Centre					</button>
+					<button class="button" value="right">
+						Right					</button>
+					<button class="button active" value="none">
+						None					</button>
+				</span>
+			</span>
+		</fieldset>
+		<fieldset class="setting-group">
+			<legend class="name">Link To</legend>
+			<span class="setting link-to">
+				<span class="button-group button-large" data-setting="link">
+					<button class="button" value="file">
+						Image URL					</button>
+					<button class="button" value="custom">
+						Custom URL					</button>
+					<button class="button active" value="none">
+						None					</button>
+				</span>
+			</span>
+			<span class="setting">
+				<label for="embed-image-settings-link-to-custom" class="name">URL</label>
+				<input type="text" id="embed-image-settings-link-to-custom" class="link-to-custom" data-setting="linkUrl" />
+			</span>
+		</fieldset>
+	</script>
+		<script type="text/html" id="tmpl-image-details">
+		<div class="media-embed">
+			<div class="embed-media-settings">
+				<div class="column-settings">
+					<span class="setting alt-text has-description">
+						<label for="image-details-alt-text" class="name">Alternative Text</label>
+						<input type="text" id="image-details-alt-text" data-setting="alt" value="{{ data.model.alt }}" aria-describedby="alt-text-description" />
+					</span>
+					<p class="description" id="alt-text-description"><a href="https://www.w3.org/WAI/tutorials/images/decision-tree" target="_blank" rel="noopener noreferrer">Describe the purpose of the image<span class="screen-reader-text"> (opens in a new tab)</span></a>. Leave empty if the image is purely decorative.</p>
+											<span class="setting caption">
+							<label for="image-details-caption" class="name">Caption</label>
+							<textarea id="image-details-caption" data-setting="caption">{{ data.model.caption }}</textarea>
+						</span>
+					
+					<h2>Display Settings</h2>
+					<fieldset class="setting-group">
+						<legend class="legend-inline">Align</legend>
+						<span class="setting align">
+							<span class="button-group button-large" data-setting="align">
+								<button class="button" value="left">
+									Left								</button>
+								<button class="button" value="center">
+									Centre								</button>
+								<button class="button" value="right">
+									Right								</button>
+								<button class="button active" value="none">
+									None								</button>
+							</span>
+						</span>
+					</fieldset>
+					<# if ( data.attachment ) { #>
+						<# if ( 'undefined' !== typeof data.attachment.sizes ) { #>
+							<span class="setting size">
+								<label for="image-details-size" class="name">Size</label>
+								<select id="image-details-size" class="size" name="size"
+									data-setting="size"
+									<# if ( data.userSettings ) { #>
+										data-user-setting="imgsize"
+									<# } #>>
+																			<#
+										var size = data.sizes['thumbnail'];
+										if ( size ) { #>
+											<option value="thumbnail">
+												Thumbnail &ndash; {{ size.width }} &times; {{ size.height }}
+											</option>
+										<# } #>
+																			<#
+										var size = data.sizes['medium'];
+										if ( size ) { #>
+											<option value="medium">
+												Medium &ndash; {{ size.width }} &times; {{ size.height }}
+											</option>
+										<# } #>
+																			<#
+										var size = data.sizes['large'];
+										if ( size ) { #>
+											<option value="large">
+												Large &ndash; {{ size.width }} &times; {{ size.height }}
+											</option>
+										<# } #>
+																			<#
+										var size = data.sizes['full'];
+										if ( size ) { #>
+											<option value="full">
+												Full Size &ndash; {{ size.width }} &times; {{ size.height }}
+											</option>
+										<# } #>
+																		<option value="custom">
+										Custom Size									</option>
+								</select>
+							</span>
+						<# } #>
+							<div class="custom-size wp-clearfix<# if ( data.model.size !== 'custom' ) { #> hidden<# } #>">
+								<span class="custom-size-setting">
+									<label for="image-details-size-width">Width</label>
+									<input type="number" id="image-details-size-width" aria-describedby="image-size-desc" data-setting="customWidth" step="1" value="{{ data.model.customWidth }}" />
+								</span>
+								<span class="sep" aria-hidden="true">&times;</span>
+								<span class="custom-size-setting">
+									<label for="image-details-size-height">Height</label>
+									<input type="number" id="image-details-size-height" aria-describedby="image-size-desc" data-setting="customHeight" step="1" value="{{ data.model.customHeight }}" />
+								</span>
+								<p id="image-size-desc" class="description">Image size in pixels</p>
+							</div>
+					<# } #>
+					<span class="setting link-to">
+						<label for="image-details-link-to" class="name">Link To</label>
+						<select id="image-details-link-to" data-setting="link">
+						<# if ( data.attachment ) { #>
+							<option value="file">
+								Media File							</option>
+							<option value="post">
+								Attachment Page							</option>
+						<# } else { #>
+							<option value="file">
+								Image URL							</option>
+						<# } #>
+							<option value="custom">
+								Custom URL							</option>
+							<option value="none">
+								None							</option>
+						</select>
+					</span>
+					<span class="setting">
+						<label for="image-details-link-to-custom" class="name">URL</label>
+						<input type="text" id="image-details-link-to-custom" class="link-to-custom" data-setting="linkUrl" />
+					</span>
+					<div class="advanced-section">
+						<h2><button type="button" class="button-link advanced-toggle">Advanced Options</button></h2>
+						<div class="advanced-settings hidden">
+							<div class="advanced-image">
+								<span class="setting title-text">
+									<label for="image-details-title-attribute" class="name">Image Title Attribute</label>
+									<input type="text" id="image-details-title-attribute" data-setting="title" value="{{ data.model.title }}" />
+								</span>
+								<span class="setting extra-classes">
+									<label for="image-details-css-class" class="name">Image CSS Class</label>
+									<input type="text" id="image-details-css-class" data-setting="extraClasses" value="{{ data.model.extraClasses }}" />
+								</span>
+							</div>
+							<div class="advanced-link">
+								<span class="setting link-target">
+									<input type="checkbox" id="image-details-link-target" data-setting="linkTargetBlank" value="_blank" <# if ( data.model.linkTargetBlank ) { #>checked="checked"<# } #>>
+									<label for="image-details-link-target" class="checkbox-label">Open link in a new tab</label>
+								</span>
+								<span class="setting link-rel">
+									<label for="image-details-link-rel" class="name">Link Rel</label>
+									<input type="text" id="image-details-link-rel" data-setting="linkRel" value="{{ data.model.linkRel }}" />
+								</span>
+								<span class="setting link-class-name">
+									<label for="image-details-link-css-class" class="name">Link CSS Class</label>
+									<input type="text" id="image-details-link-css-class" data-setting="linkClassName" value="{{ data.model.linkClassName }}" />
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="column-image">
+					<div class="image">
+						<img src="{{ data.model.url }}" draggable="false" alt="" />
+						<# if ( data.attachment && window.imageEdit ) { #>
+							<div class="actions">
+								<input type="button" class="edit-attachment button" value="Edit Original" />
+								<input type="button" class="replace-attachment button" value="Replace" />
+							</div>
+						<# } #>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+		<script type="text/html" id="tmpl-image-editor">
+		<div id="media-head-{{ data.id }}"></div>
+		<div id="image-editor-{{ data.id }}"></div>
+	</script>
+		<script type="text/html" id="tmpl-audio-details">
+		<# var ext, html5types = {
+			mp3: wp.media.view.settings.embedMimes.mp3,
+			ogg: wp.media.view.settings.embedMimes.ogg
+		}; #>
+				<div class="media-embed media-embed-details">
+			<div class="embed-media-settings embed-audio-settings">
+				<audio style="visibility: hidden"
+	controls
+	class="wp-audio-shortcode"
+	width="{{ _.isUndefined( data.model.width ) ? 400 : data.model.width }}"
+	preload="{{ _.isUndefined( data.model.preload ) ? 'none' : data.model.preload }}"
+	<#
+		if ( ! _.isUndefined( data.model.autoplay ) && data.model.autoplay ) {
+		#> autoplay<#
+	}
+		if ( ! _.isUndefined( data.model.loop ) && data.model.loop ) {
+		#> loop<#
+	}
+	#>
+>
+	<# if ( ! _.isEmpty( data.model.src ) ) { #>
+	<source src="{{ data.model.src }}" type="{{ wp.media.view.settings.embedMimes[ data.model.src.split('.').pop() ] }}" />
+	<# } #>
+		<# if ( ! _.isEmpty( data.model.mp3 ) ) { #>
+	<source src="{{ data.model.mp3 }}" type="{{ wp.media.view.settings.embedMimes[ 'mp3' ] }}" />
+	<# } #>
+			<# if ( ! _.isEmpty( data.model.ogg ) ) { #>
+	<source src="{{ data.model.ogg }}" type="{{ wp.media.view.settings.embedMimes[ 'ogg' ] }}" />
+	<# } #>
+			<# if ( ! _.isEmpty( data.model.flac ) ) { #>
+	<source src="{{ data.model.flac }}" type="{{ wp.media.view.settings.embedMimes[ 'flac' ] }}" />
+	<# } #>
+			<# if ( ! _.isEmpty( data.model.m4a ) ) { #>
+	<source src="{{ data.model.m4a }}" type="{{ wp.media.view.settings.embedMimes[ 'm4a' ] }}" />
+	<# } #>
+			<# if ( ! _.isEmpty( data.model.wav ) ) { #>
+	<source src="{{ data.model.wav }}" type="{{ wp.media.view.settings.embedMimes[ 'wav' ] }}" />
+	<# } #>
+		</audio>
+	
+				<# if ( ! _.isEmpty( data.model.src ) ) {
+					ext = data.model.src.split('.').pop();
+					if ( html5types[ ext ] ) {
+						delete html5types[ ext ];
+					}
+				#>
+				<span class="setting">
+					<label for="audio-details-source" class="name">URL</label>
+					<input type="text" id="audio-details-source" readonly data-setting="src" value="{{ data.model.src }}" />
+					<button type="button" class="button-link remove-setting">Remove audio source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.mp3 ) ) {
+					if ( ! _.isUndefined( html5types.mp3 ) ) {
+						delete html5types.mp3;
+					}
+				#>
+				<span class="setting">
+					<label for="audio-details-mp3-source" class="name">MP3</label>
+					<input type="text" id="audio-details-mp3-source" readonly data-setting="mp3" value="{{ data.model.mp3 }}" />
+					<button type="button" class="button-link remove-setting">Remove audio source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.ogg ) ) {
+					if ( ! _.isUndefined( html5types.ogg ) ) {
+						delete html5types.ogg;
+					}
+				#>
+				<span class="setting">
+					<label for="audio-details-ogg-source" class="name">OGG</label>
+					<input type="text" id="audio-details-ogg-source" readonly data-setting="ogg" value="{{ data.model.ogg }}" />
+					<button type="button" class="button-link remove-setting">Remove audio source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.flac ) ) {
+					if ( ! _.isUndefined( html5types.flac ) ) {
+						delete html5types.flac;
+					}
+				#>
+				<span class="setting">
+					<label for="audio-details-flac-source" class="name">FLAC</label>
+					<input type="text" id="audio-details-flac-source" readonly data-setting="flac" value="{{ data.model.flac }}" />
+					<button type="button" class="button-link remove-setting">Remove audio source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.m4a ) ) {
+					if ( ! _.isUndefined( html5types.m4a ) ) {
+						delete html5types.m4a;
+					}
+				#>
+				<span class="setting">
+					<label for="audio-details-m4a-source" class="name">M4A</label>
+					<input type="text" id="audio-details-m4a-source" readonly data-setting="m4a" value="{{ data.model.m4a }}" />
+					<button type="button" class="button-link remove-setting">Remove audio source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.wav ) ) {
+					if ( ! _.isUndefined( html5types.wav ) ) {
+						delete html5types.wav;
+					}
+				#>
+				<span class="setting">
+					<label for="audio-details-wav-source" class="name">WAV</label>
+					<input type="text" id="audio-details-wav-source" readonly data-setting="wav" value="{{ data.model.wav }}" />
+					<button type="button" class="button-link remove-setting">Remove audio source</button>
+				</span>
+				<# } #>
+				
+				<# if ( ! _.isEmpty( html5types ) ) { #>
+				<fieldset class="setting-group">
+					<legend class="name">Add alternate sources for maximum HTML5 playback</legend>
+					<span class="setting">
+						<span class="button-large">
+						<# _.each( html5types, function (mime, type) { #>
+							<button class="button add-media-source" data-mime="{{ mime }}">{{ type }}</button>
+						<# } ) #>
+						</span>
+					</span>
+				</fieldset>
+				<# } #>
+				<fieldset class="setting-group">
+					<legend class="name">Preload</legend>
+					<span class="setting preload">
+						<span class="button-group button-large" data-setting="preload">
+							<button class="button" value="auto">Auto</button>
+							<button class="button" value="metadata">Metadata</button>
+							<button class="button active" value="none">None</button>
+						</span>
+					</span>
+				</fieldset>
+				<span class="setting-group">
+					<span class="setting checkbox-setting autoplay">
+						<input type="checkbox" id="audio-details-autoplay" data-setting="autoplay" />
+						<label for="audio-details-autoplay" class="checkbox-label">Autoplay</label>
+					</span>
+					<span class="setting checkbox-setting">
+						<input type="checkbox" id="audio-details-loop" data-setting="loop" />
+						<label for="audio-details-loop" class="checkbox-label">Loop</label>
+					</span>
+				</span>
+			</div>
+		</div>
+	</script>
+		<script type="text/html" id="tmpl-video-details">
+		<# var ext, html5types = {
+			mp4: wp.media.view.settings.embedMimes.mp4,
+			ogv: wp.media.view.settings.embedMimes.ogv,
+			webm: wp.media.view.settings.embedMimes.webm
+		}; #>
+				<div class="media-embed media-embed-details">
+			<div class="embed-media-settings embed-video-settings">
+				<div class="wp-video-holder">
+				<#
+				var w = ! data.model.width || data.model.width > 640 ? 640 : data.model.width,
+					h = ! data.model.height ? 360 : data.model.height;
+				if ( data.model.width && w !== data.model.width ) {
+					h = Math.ceil( ( h * w ) / data.model.width );
+				}
+				#>
+				<#  var w_rule = '', classes = [],
+		w, h, settings = wp.media.view.settings,
+		isYouTube = isVimeo = false;
+	if ( ! _.isEmpty( data.model.src ) ) {
+		isYouTube = data.model.src.match(/youtube|youtu\.be/);
+		isVimeo = -1 !== data.model.src.indexOf('vimeo');
+	}
+	if ( settings.contentWidth && data.model.width >= settings.contentWidth ) {
+		w = settings.contentWidth;
+	} else {
+		w = data.model.width;
+	}
+	if ( w !== data.model.width ) {
+		h = Math.ceil( ( data.model.height * w ) / data.model.width );
+	} else {
+		h = data.model.height;
+	}
+	if ( w ) {
+		w_rule = 'width: ' + w + 'px; ';
+	}
+	if ( isYouTube ) {
+		classes.push( 'youtube-video' );
+	}
+	if ( isVimeo ) {
+		classes.push( 'vimeo-video' );
+	}
+#>
+<div style="{{ w_rule }}" class="wp-video">
+<video controls
+	class="wp-video-shortcode {{ classes.join( ' ' ) }}"
+	<# if ( w ) { #>width="{{ w }}"<# } #>
+	<# if ( h ) { #>height="{{ h }}"<# } #>
+			<#
+		if ( ! _.isUndefined( data.model.poster ) && data.model.poster ) {
+			#> poster="{{ data.model.poster }}"<#
+		} #>
+			preload			="{{ _.isUndefined( data.model.preload ) ? 'metadata' : data.model.preload }}"
+				<#
+		if ( ! _.isUndefined( data.model.autoplay ) && data.model.autoplay ) {
+		#> autoplay<#
+	}
+		if ( ! _.isUndefined( data.model.loop ) && data.model.loop ) {
+		#> loop<#
+	}
+	#>
+>
+	<# if ( ! _.isEmpty( data.model.src ) ) {
+		if ( isYouTube ) { #>
+		<source src="{{ data.model.src }}" type="video/youtube" />
+		<# } else if ( isVimeo ) { #>
+		<source src="{{ data.model.src }}" type="video/vimeo" />
+		<# } else { #>
+		<source src="{{ data.model.src }}" type="{{ settings.embedMimes[ data.model.src.split('.').pop() ] }}" />
+		<# }
+	} #>
+		<# if ( data.model.mp4 ) { #>
+	<source src="{{ data.model.mp4 }}" type="{{ settings.embedMimes[ 'mp4' ] }}" />
+	<# } #>
+		<# if ( data.model.m4v ) { #>
+	<source src="{{ data.model.m4v }}" type="{{ settings.embedMimes[ 'm4v' ] }}" />
+	<# } #>
+		<# if ( data.model.webm ) { #>
+	<source src="{{ data.model.webm }}" type="{{ settings.embedMimes[ 'webm' ] }}" />
+	<# } #>
+		<# if ( data.model.ogv ) { #>
+	<source src="{{ data.model.ogv }}" type="{{ settings.embedMimes[ 'ogv' ] }}" />
+	<# } #>
+		<# if ( data.model.flv ) { #>
+	<source src="{{ data.model.flv }}" type="{{ settings.embedMimes[ 'flv' ] }}" />
+	<# } #>
+		{{{ data.model.content }}}
+</video>
+</div>
+	
+				<# if ( ! _.isEmpty( data.model.src ) ) {
+					ext = data.model.src.split('.').pop();
+					if ( html5types[ ext ] ) {
+						delete html5types[ ext ];
+					}
+				#>
+				<span class="setting">
+					<label for="video-details-source" class="name">URL</label>
+					<input type="text" id="video-details-source" readonly data-setting="src" value="{{ data.model.src }}" />
+					<button type="button" class="button-link remove-setting">Remove video source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.mp4 ) ) {
+					if ( ! _.isUndefined( html5types.mp4 ) ) {
+						delete html5types.mp4;
+					}
+				#>
+				<span class="setting">
+					<label for="video-details-mp4-source" class="name">MP4</label>
+					<input type="text" id="video-details-mp4-source" readonly data-setting="mp4" value="{{ data.model.mp4 }}" />
+					<button type="button" class="button-link remove-setting">Remove video source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.m4v ) ) {
+					if ( ! _.isUndefined( html5types.m4v ) ) {
+						delete html5types.m4v;
+					}
+				#>
+				<span class="setting">
+					<label for="video-details-m4v-source" class="name">M4V</label>
+					<input type="text" id="video-details-m4v-source" readonly data-setting="m4v" value="{{ data.model.m4v }}" />
+					<button type="button" class="button-link remove-setting">Remove video source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.webm ) ) {
+					if ( ! _.isUndefined( html5types.webm ) ) {
+						delete html5types.webm;
+					}
+				#>
+				<span class="setting">
+					<label for="video-details-webm-source" class="name">WEBM</label>
+					<input type="text" id="video-details-webm-source" readonly data-setting="webm" value="{{ data.model.webm }}" />
+					<button type="button" class="button-link remove-setting">Remove video source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.ogv ) ) {
+					if ( ! _.isUndefined( html5types.ogv ) ) {
+						delete html5types.ogv;
+					}
+				#>
+				<span class="setting">
+					<label for="video-details-ogv-source" class="name">OGV</label>
+					<input type="text" id="video-details-ogv-source" readonly data-setting="ogv" value="{{ data.model.ogv }}" />
+					<button type="button" class="button-link remove-setting">Remove video source</button>
+				</span>
+				<# } #>
+								<# if ( ! _.isEmpty( data.model.flv ) ) {
+					if ( ! _.isUndefined( html5types.flv ) ) {
+						delete html5types.flv;
+					}
+				#>
+				<span class="setting">
+					<label for="video-details-flv-source" class="name">FLV</label>
+					<input type="text" id="video-details-flv-source" readonly data-setting="flv" value="{{ data.model.flv }}" />
+					<button type="button" class="button-link remove-setting">Remove video source</button>
+				</span>
+				<# } #>
+								</div>
+				<# if ( ! _.isEmpty( html5types ) ) { #>
+				<fieldset class="setting-group">
+					<legend class="name">Add alternate sources for maximum HTML5 playback</legend>
+					<span class="setting">
+						<span class="button-large">
+						<# _.each( html5types, function (mime, type) { #>
+							<button class="button add-media-source" data-mime="{{ mime }}">{{ type }}</button>
+						<# } ) #>
+						</span>
+					</span>
+				</fieldset>
+				<# } #>
+				<# if ( ! _.isEmpty( data.model.poster ) ) { #>
+				<span class="setting">
+					<label for="video-details-poster-image" class="name">Poster Image</label>
+					<input type="text" id="video-details-poster-image" readonly data-setting="poster" value="{{ data.model.poster }}" />
+					<button type="button" class="button-link remove-setting">Remove poster image</button>
+				</span>
+				<# } #>
+				<fieldset class="setting-group">
+					<legend class="name">Preload</legend>
+					<span class="setting preload">
+						<span class="button-group button-large" data-setting="preload">
+							<button class="button" value="auto">Auto</button>
+							<button class="button" value="metadata">Metadata</button>
+							<button class="button active" value="none">None</button>
+						</span>
+					</span>
+				</fieldset>
+				<span class="setting-group">
+					<span class="setting checkbox-setting autoplay">
+						<input type="checkbox" id="video-details-autoplay" data-setting="autoplay" />
+						<label for="video-details-autoplay" class="checkbox-label">Autoplay</label>
+					</span>
+					<span class="setting checkbox-setting">
+						<input type="checkbox" id="video-details-loop" data-setting="loop" />
+						<label for="video-details-loop" class="checkbox-label">Loop</label>
+					</span>
+				</span>
+				<span class="setting" data-setting="content">
+					<#
+					var content = '';
+					if ( ! _.isEmpty( data.model.content ) ) {
+						var tracks = jQuery( data.model.content ).filter( 'track' );
+						_.each( tracks.toArray(), function( track, index ) {
+							content += track.outerHTML; #>
+						<label for="video-details-track-{{ index }}" class="name">Tracks (subtitles, captions, descriptions, chapters, or metadata)</label>
+						<input class="content-track" type="text" id="video-details-track-{{ index }}" aria-describedby="video-details-track-desc-{{ index }}" value="{{ track.outerHTML }}" />
+						<span class="description" id="video-details-track-desc-{{ index }}">
+						The srclang, label, and kind values can be edited to set the video track language and kind.						</span>
+						<button type="button" class="button-link remove-setting remove-track">Remove video track</button><br/>
+						<# } ); #>
+					<# } else { #>
+					<span class="name">Tracks (subtitles, captions, descriptions, chapters, or metadata)</span><br />
+					<em>There are no associated subtitles.</em>
+					<# } #>
+					<textarea class="hidden content-setting">{{ content }}</textarea>
+				</span>
+			</div>
+		</div>
+	</script>
+		<script type="text/html" id="tmpl-editor-gallery">
+		<# if ( data.attachments.length ) { #>
+			<div class="gallery gallery-columns-{{ data.columns }}">
+				<# _.each( data.attachments, function( attachment, index ) { #>
+					<dl class="gallery-item">
+						<dt class="gallery-icon">
+							<# if ( attachment.thumbnail ) { #>
+								<img src="{{ attachment.thumbnail.url }}" width="{{ attachment.thumbnail.width }}" height="{{ attachment.thumbnail.height }}" alt="{{ attachment.alt }}" />
+							<# } else { #>
+								<img src="{{ attachment.url }}" alt="{{ attachment.alt }}" />
+							<# } #>
+						</dt>
+						<# if ( attachment.caption ) { #>
+							<dd class="wp-caption-text gallery-caption">
+								{{{ data.verifyHTML( attachment.caption ) }}}
+							</dd>
+						<# } #>
+					</dl>
+					<# if ( index % data.columns === data.columns - 1 ) { #>
+						<br style="clear: both;">
+					<# } #>
+				<# } ); #>
+			</div>
+		<# } else { #>
+			<div class="wpview-error">
+				<div class="dashicons dashicons-format-gallery"></div><p>No items found.</p>
+			</div>
+		<# } #>
+	</script>
+		<script type="text/html" id="tmpl-crop-content">
+		<img class="crop-image" src="{{ data.url }}" alt="Image crop area preview. Requires mouse interaction.">
+		<div class="upload-errors"></div>
+	</script>
+		<script type="text/html" id="tmpl-site-icon-preview">
+		<h2>Preview</h2>
+		<strong aria-hidden="true">As a browser icon</strong>
+		<div class="favicon-preview">
+			<img src="https://uaceit.com/wp-admin/images/browser.png" class="browser-preview" width="182" height="" alt="" />
+			<div class="favicon">
+				<img id="preview-favicon" src="{{ data.url }}" alt="Preview as a browser icon"/>
+			</div>
+			<span class="browser-title" aria-hidden="true"><# print( 'UAceIt' ) #></span>
+		</div>
+		<strong aria-hidden="true">As an app icon</strong>
+		<div class="app-icon-preview">
+			<img id="preview-app-icon" src="{{ data.url }}" alt="Preview as an app icon"/>
+		</div>
+	</script>
+	<script id="tmpl-rwmb-media-item" type="text/html">
+	<input type="hidden" name="{{{ data.controller.fieldName }}}" value="{{{ data.id }}}" class="rwmb-media-input">
+	<div class="rwmb-media-preview">
+		<div class="rwmb-media-content">
+			<div class="centered">
+				<# if ( 'image' === data.type && data.sizes ) { #>
+					<# if ( data.sizes.thumbnail ) { #>
+						<img src="{{{ data.sizes.thumbnail.url }}}">
+					<# } else { #>
+						<img src="{{{ data.sizes.full.url }}}">
+					<# } #>
+				<# } else { #>
+					<# if ( data.image && data.image.src && data.image.src !== data.icon ) { #>
+						<img src="{{ data.image.src }}" />
+					<# } else { #>
+						<img src="{{ data.icon }}" />
+					<# } #>
+				<# } #>
+			</div>
+		</div>
+	</div>
+	<div class="rwmb-media-info">
+		<h4>
+			<a href="{{{ data.url }}}" target="_blank" title="{{{ i18nRwmbMedia.view }}}">
+				<# if( data.title ) { #> {{{ data.title }}}
+					<# } else { #> {{{ i18nRwmbMedia.noTitle }}}
+				<# } #>
+			</a>
+		</h4>
+		<p>{{{ data.mime }}}</p>
+		<p>
+			<a class="rwmb-edit-media" title="{{{ i18nRwmbMedia.edit }}}" href="{{{ data.editLink }}}" target="_blank">
+				<span class="dashicons dashicons-edit"></span>{{{ i18nRwmbMedia.edit }}}
+			</a>
+			<a href="#" class="rwmb-remove-media" title="{{{ i18nRwmbMedia.remove }}}">
+				<span class="dashicons dashicons-no-alt"></span>{{{ i18nRwmbMedia.remove }}}
+			</a>
+		</p>
+	</div>
+</script>
+<script id="tmpl-rwmb-media-status" type="text/html">
+	<# if ( data.maxFiles > 0 ) { #>
+		{{{ data.length }}}/{{{ data.maxFiles }}}
+		<# if ( 1 < data.maxFiles ) { #>{{{ i18nRwmbMedia.multiple }}}<# } else {#>{{{ i18nRwmbMedia.single }}}<# } #>
+	<# } #>
+</script>
+<script id="tmpl-rwmb-media-button" type="text/html">
+	<a class="button">{{{ data.text }}}</a>
+</script>
+<script id="tmpl-rwmb-image-item" type="text/html">
+	<input type="hidden" name="{{{ data.controller.fieldName }}}" value="{{{ data.id }}}" class="rwmb-media-input">
+	<div class="rwmb-media-preview">
+		<div class="rwmb-media-content">
+			<div class="centered">
+				<# if ( 'image' === data.type && data.sizes ) { #>
+					<# if ( data.sizes[data.controller.imageSize] ) { #>
+						<img src="{{{ data.sizes[data.controller.imageSize].url }}}">
+					<# } else { #>
+						<img src="{{{ data.sizes.full.url }}}">
+					<# } #>
+				<# } else { #>
+					<# if ( data.image && data.image.src && data.image.src !== data.icon ) { #>
+						<img src="{{ data.image.src }}" />
+					<# } else { #>
+						<img src="{{ data.icon }}" />
+					<# } #>
+				<# } #>
+			</div>
+		</div>
+	</div>
+	<div class="rwmb-overlay"></div>
+	<div class="rwmb-media-bar">
+		<a class="rwmb-edit-media" title="{{{ i18nRwmbMedia.edit }}}" href="{{{ data.editLink }}}" target="_blank">
+			<span class="dashicons dashicons-edit"></span>
+		</a>
+		<a href="#" class="rwmb-remove-media" title="{{{ i18nRwmbMedia.remove }}}">
+			<span class="dashicons dashicons-no-alt"></span>
+		</a>
+	</div>
+</script>
+	<script type="text/javascript">
+		var c = document.body.className;
+		c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+		document.body.className = c;
+	</script>
+	<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/editor.min.js.download"></script>
+<script type="text/javascript">
+window.wp.oldEditor = window.wp.editor;
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var quicktagsL10n = {"closeAllOpenTags":"Close all open tags","closeTags":"close tags","enterURL":"Enter the URL","enterImageURL":"Enter the URL of the image","enterImageDescription":"Enter a description of the image","textdirection":"text direction","toggleTextdirection":"Toggle Editor Text Direction","dfw":"Distraction-free writing mode","strong":"Bold","strongClose":"Close bold tag","em":"Italic","emClose":"Close italic tag","link":"Insert link","blockquote":"Blockquote","blockquoteClose":"Close blockquote tag","del":"Deleted text (strikethrough)","delClose":"Close deleted text tag","ins":"Inserted text","insClose":"Close inserted text tag","image":"Insert image","ul":"Bulleted list","ulClose":"Close bulleted list tag","ol":"Numbered list","olClose":"Close numbered list tag","li":"List item","liClose":"Close list item tag","code":"Code","codeClose":"Close code tag","more":"Insert Read More tag"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/quicktags.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wp-polyfill.min.js.download"></script><iframe id="ssIFrame_google" sandbox="allow-scripts allow-same-origin" aria-hidden="true" frame-border="0" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/iframe.html" style="position: absolute; width: 1px; height: 1px; left: -9999px; top: -9999px; right: -9999px; bottom: -9999px; display: none;"></iframe>
+<script type="text/javascript">
+( 'fetch' in window ) || document.write( '<script src="https://uaceit.com/resources/js/dist/vendor/wp-polyfill-fetch.min.js"></scr' + 'ipt>' );( document.contains ) || document.write( '<script src="https://uaceit.com/resources/js/dist/vendor/wp-polyfill-node-contains.min.js"></scr' + 'ipt>' );( window.DOMRect ) || document.write( '<script src="https://uaceit.com/resources/js/dist/vendor/wp-polyfill-dom-rect.min.js"></scr' + 'ipt>' );( window.URL && window.URL.prototype && window.URLSearchParams ) || document.write( '<script src="https://uaceit.com/resources/js/dist/vendor/wp-polyfill-url.min.js"></scr' + 'ipt>' );( window.FormData && window.FormData.prototype.keys ) || document.write( '<script src="https://uaceit.com/resources/js/dist/vendor/wp-polyfill-formdata.min.js"></scr' + 'ipt>' );( Element.prototype.matches && Element.prototype.closest ) || document.write( '<script src="https://uaceit.com/resources/js/dist/vendor/wp-polyfill-element-closest.min.js"></scr' + 'ipt>' );
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/dom-ready.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/a11y.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpLinkL10n = {"title":"Insert\/edit link","update":"Update","save":"Add Link","noTitle":"(no title)","noMatchesFound":"No results found.","linkSelected":"Link selected.","linkInserted":"Link inserted.","minInputLength":"3"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wplink.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/core.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/widget.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/position.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/menu.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var uiAutocompleteL10n = {"noResults":"No results found.","oneResult":"1 result found. Use up and down arrow keys to navigate.","manyResults":"%d results found. Use up and down arrow keys to navigate.","itemSelected":"Item selected."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/autocomplete.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var thickboxL10n = {"next":"Next >","prev":"< Prev","image":"Image","of":"of","close":"Close","noiframes":"This feature requires inline frames. You have iframes disabled or your browser does not support them.","loadingAnimation":"https:\/\/uaceit.com\/resources\/js\/thickbox\/loadingAnimation.gif"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/thickbox.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/underscore.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/shortcode.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/media-upload.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/mouse.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/sortable.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/plyr.polyfilled.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/SocialShare.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/tutor.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _tutorobject = {"ajaxurl":"https:\/\/uaceit.com\/wp-admin\/admin-ajax.php","nonce_key":"_wpnonce","_wpnonce":"aa5913c4e8","placeholder_img_src":"https:\/\/uaceit.com\/addon\/tutor\/assets\/images\/placeholder.jpg","enable_lesson_classic_editor":"1","text":{"assignment_text_validation_msg":"Assignment answer can not be empty"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/tutor-front.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/jquery.blockUI.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wc_add_to_cart_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View basket","cart_url":"https:\/\/uaceit.com\/cart\/","is_cart":"","cart_redirect_after_add":"no"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/add-to-cart.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/js.cookie.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var woocommerce_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/woocommerce.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wc_cart_fragments_params = {"ajax_url":"\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","cart_hash_key":"wc_cart_hash_3df125d9909b8614221a07af776d83d3","fragment_name":"wc_fragments_3df125d9909b8614221a07af776d83d3","request_timeout":"5000"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/cart-fragments.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/backbone.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpUtilSettings = {"ajax":{"url":"\/wp-admin\/admin-ajax.php"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wp-util.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wp-backbone.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpMediaModelsL10n = {"settings":{"ajaxurl":"\/wp-admin\/admin-ajax.php","post":{"id":0}}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/media-models.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var pluploadL10n = {"queue_limit_exceeded":"You have attempted to queue too many files.","file_exceeds_size_limit":"%s exceeds the maximum upload size for this site.","zero_byte_file":"This file is empty. Please try another.","invalid_filetype":"Sorry, this file type is not permitted for security reasons.","not_an_image":"This file is not an image. Please try another.","image_memory_exceeded":"Memory exceeded. Please try another smaller file.","image_dimensions_exceeded":"This is larger than the maximum size. Please try another.","default_error":"An error occurred in the upload. Please try again later.","missing_upload_url":"There was a configuration error. Please contact the server administrator.","upload_limit_exceeded":"You may only upload one file.","http_error":"Unexpected response from the server. The file may have been uploaded successfully. Check in the Media Library or reload the page.","http_error_image":"Post-processing of the image likely failed because the server is busy or does not have enough resources. Uploading a smaller image may help. Suggested maximum size is 2500 pixels.","upload_failed":"Upload failed.","big_upload_failed":"Please try uploading this file with the %1$sbrowser uploader%2$s.","big_upload_queued":"%s exceeds the maximum upload size for the multi-file uploader when used in your browser.","io_error":"IO error.","security_error":"Security error.","file_cancelled":"File cancelled.","upload_stopped":"Upload stopped.","dismiss":"Dismiss","crunching":"Crunching\u2026","deleted":"moved to the Bin.","error_uploading":"\u201c%s\u201d has failed to upload."};
+var _wpPluploadSettings = {"defaults":{"file_data_name":"async-upload","url":"\/wp-admin\/async-upload.php","filters":{"max_file_size":"134217728b","mime_types":[{"extensions":"jpg,jpeg,jpe,gif,png,bmp,tiff,tif,ico,asf,asx,wmv,wmx,wm,avi,divx,flv,mov,qt,mpeg,mpg,mpe,mp4,m4v,ogv,webm,mkv,3gp,3gpp,3g2,3gp2,txt,asc,c,cc,h,srt,csv,tsv,ics,rtx,css,vtt,dfxp,mp3,m4a,m4b,aac,ra,ram,wav,ogg,oga,flac,mid,midi,wma,wax,mka,rtf,pdf,class,tar,zip,gz,gzip,rar,7z,psd,xcf,doc,pot,pps,ppt,wri,xla,xls,xlt,xlw,mdb,mpp,docx,docm,dotx,dotm,xlsx,xlsm,xlsb,xltx,xltm,xlam,pptx,pptm,ppsx,ppsm,potx,potm,ppam,sldx,sldm,onetoc,onetoc2,onetmp,onepkg,oxps,xps,odt,odp,ods,odg,odc,odb,odf,wp,wpd,key,numbers,pages,redux"}]},"multipart_params":{"action":"upload-attachment","_wpnonce":"a5ca380ee2"}},"browser":{"mobile":false,"supported":true},"limitExceeded":false};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wp-plupload.min.js.download"></script>
+<script type="text/javascript">
+var mejsL10n = {"language":"en","strings":{"mejs.download-file":"Download File","mejs.install-flash":"You are using a browser that does not have Flash player enabled or installed. Please turn on your Flash player plugin or download the latest version from https:\/\/get.adobe.com\/flashplayer\/","mejs.fullscreen":"Fullscreen","mejs.play":"Play","mejs.pause":"Pause","mejs.time-slider":"Time Slider","mejs.time-help-text":"Use Left\/Right Arrow keys to advance one second, Up\/Down arrows to advance ten seconds.","mejs.live-broadcast":"Live Broadcast","mejs.volume-help-text":"Use Up\/Down Arrow keys to increase or decrease volume.","mejs.unmute":"Unmute","mejs.mute":"Mute","mejs.volume-slider":"Volume Slider","mejs.video-player":"Video Player","mejs.audio-player":"Audio Player","mejs.captions-subtitles":"Captions\/Subtitles","mejs.captions-chapters":"Chapters","mejs.none":"None","mejs.afrikaans":"Afrikaans","mejs.albanian":"Albanian","mejs.arabic":"Arabic","mejs.belarusian":"Belarusian","mejs.bulgarian":"Bulgarian","mejs.catalan":"Catalan","mejs.chinese":"Chinese","mejs.chinese-simplified":"Chinese (Simplified)","mejs.chinese-traditional":"Chinese (Traditional)","mejs.croatian":"Croatian","mejs.czech":"Czech","mejs.danish":"Danish","mejs.dutch":"Dutch","mejs.english":"English","mejs.estonian":"Estonian","mejs.filipino":"Filipino","mejs.finnish":"Finnish","mejs.french":"French","mejs.galician":"Galician","mejs.german":"German","mejs.greek":"Greek","mejs.haitian-creole":"Haitian Creole","mejs.hebrew":"Hebrew","mejs.hindi":"Hindi","mejs.hungarian":"Hungarian","mejs.icelandic":"Icelandic","mejs.indonesian":"Indonesian","mejs.irish":"Irish","mejs.italian":"Italian","mejs.japanese":"Japanese","mejs.korean":"Korean","mejs.latvian":"Latvian","mejs.lithuanian":"Lithuanian","mejs.macedonian":"Macedonian","mejs.malay":"Malay","mejs.maltese":"Maltese","mejs.norwegian":"Norwegian","mejs.persian":"Persian","mejs.polish":"Polish","mejs.portuguese":"Portuguese","mejs.romanian":"Romanian","mejs.russian":"Russian","mejs.serbian":"Serbian","mejs.slovak":"Slovak","mejs.slovenian":"Slovenian","mejs.spanish":"Spanish","mejs.swahili":"Swahili","mejs.swedish":"Swedish","mejs.tagalog":"Tagalog","mejs.thai":"Thai","mejs.turkish":"Turkish","mejs.ukrainian":"Ukrainian","mejs.vietnamese":"Vietnamese","mejs.welsh":"Welsh","mejs.yiddish":"Yiddish"}};
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/mediaelement-and-player.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/mediaelement-migrate.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpmejsSettings = {"pluginPath":"\/resources\/js\/mediaelement\/","classPrefix":"mejs-","stretching":"responsive"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wp-mediaelement.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpApiSettings = {"root":"https:\/\/uaceit.com\/wp-json\/","nonce":"4f475dba1e","versionString":"wp\/v2\/"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/api-request.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/i18n.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpMediaViewsL10n = {"mediaFrameDefaultTitle":"Media","url":"URL","addMedia":"Add Media","search":"Search","select":"Select","cancel":"Cancel","update":"Update","replace":"Replace","remove":"Remove","back":"Back","selected":"%d selected","dragInfo":"Drag and drop to reorder media files.","uploadFilesTitle":"Upload Files","uploadImagesTitle":"Upload Images","mediaLibraryTitle":"Media Library","insertMediaTitle":"Add Media","createNewGallery":"Create a new gallery","createNewPlaylist":"Create a new playlist","createNewVideoPlaylist":"Create a new video playlist","returnToLibrary":"\u2190 Return to library","allMediaItems":"All media items","allDates":"All dates","noItemsFound":"No items found.","insertIntoPost":"Insert into post","unattached":"Unattached","mine":"Mine","trash":"Bin","uploadedToThisPost":"Uploaded to this post","warnDelete":"You are about to permanently delete this item from your site.\nThis action cannot be undone.\n 'Cancel' to stop, 'OK' to delete.","warnBulkDelete":"You are about to permanently delete these items from your site.\nThis action cannot be undone.\n 'Cancel' to stop, 'OK' to delete.","warnBulkTrash":"You are about to delete these items.\n  Click 'Cancel' to stop, or 'OK' to delete.","bulkSelect":"Bulk Select","trashSelected":"Move to Bin","restoreSelected":"Restore from Bin","deletePermanently":"Delete Permanently","apply":"Apply","filterByDate":"Filter by date","filterByType":"Filter by type","searchLabel":"Search","searchMediaLabel":"Search Media","searchMediaPlaceholder":"Search media items...","mediaFound":"Number of media items found: %d","mediaFoundHasMoreResults":"Number of media items displayed: %d. Scroll the page for more results.","noMedia":"No media items found.","noMediaTryNewSearch":"No media items found. Try a different search.","attachmentDetails":"Attachment Details","insertFromUrlTitle":"Insert from URL","setFeaturedImageTitle":"Featured image","setFeaturedImage":"Set featured image","createGalleryTitle":"Create Gallery","editGalleryTitle":"Edit Gallery","cancelGalleryTitle":"\u2190 Cancel Gallery","insertGallery":"Insert gallery","updateGallery":"Update gallery","addToGallery":"Add to gallery","addToGalleryTitle":"Add to Gallery","reverseOrder":"Reverse order","imageDetailsTitle":"Image Details","imageReplaceTitle":"Replace Image","imageDetailsCancel":"Cancel Edit","editImage":"Edit Image","chooseImage":"Choose Image","selectAndCrop":"Select and Crop","skipCropping":"Skip Cropping","cropImage":"Crop Image","cropYourImage":"Crop your image","cropping":"Cropping\u2026","suggestedDimensions":"Suggested image dimensions: %1$s by %2$s pixels.","cropError":"There has been an error cropping your image.","audioDetailsTitle":"Audio Details","audioReplaceTitle":"Replace Audio","audioAddSourceTitle":"Add Audio Source","audioDetailsCancel":"Cancel Edit","videoDetailsTitle":"Video Details","videoReplaceTitle":"Replace Video","videoAddSourceTitle":"Add Video Source","videoDetailsCancel":"Cancel Edit","videoSelectPosterImageTitle":"Select Poster Image","videoAddTrackTitle":"Add Subtitles","playlistDragInfo":"Drag and drop to reorder tracks.","createPlaylistTitle":"Create Audio Playlist","editPlaylistTitle":"Edit Audio Playlist","cancelPlaylistTitle":"\u2190 Cancel Audio Playlist","insertPlaylist":"Insert audio playlist","updatePlaylist":"Update audio playlist","addToPlaylist":"Add to audio playlist","addToPlaylistTitle":"Add to Audio Playlist","videoPlaylistDragInfo":"Drag and drop to reorder videos.","createVideoPlaylistTitle":"Create Video Playlist","editVideoPlaylistTitle":"Edit Video Playlist","cancelVideoPlaylistTitle":"\u2190 Cancel Video Playlist","insertVideoPlaylist":"Insert video playlist","updateVideoPlaylist":"Update video playlist","addToVideoPlaylist":"Add to video playlist","addToVideoPlaylistTitle":"Add to Video Playlist","filterAttachments":"Filter Media","attachmentsList":"Media list","settings":{"tabs":[],"tabUrl":"https:\/\/uaceit.com\/wp-admin\/media-upload.php?chromeless=1","mimeTypes":{"image":"Images","audio":"Audio","video":"Video","application\/msword,application\/vnd.openxmlformats-officedocument.wordprocessingml.document,application\/vnd.ms-word.document.macroEnabled.12,application\/vnd.ms-word.template.macroEnabled.12,application\/vnd.oasis.opendocument.text,application\/vnd.apple.pages,application\/pdf,application\/vnd.ms-xpsdocument,application\/oxps,application\/rtf,application\/wordperfect,application\/octet-stream":"Documents","application\/vnd.apple.numbers,application\/vnd.oasis.opendocument.spreadsheet,application\/vnd.ms-excel,application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application\/vnd.ms-excel.sheet.macroEnabled.12,application\/vnd.ms-excel.sheet.binary.macroEnabled.12":"Spreadsheets","application\/x-gzip,application\/rar,application\/x-tar,application\/zip,application\/x-7z-compressed":"Archives"},"captions":true,"nonce":{"sendToEditor":"1e01f1c491"},"post":{"id":0},"defaultProps":{"link":"file","align":"","size":""},"attachmentCounts":{"audio":1,"video":1},"oEmbedProxyUrl":"https:\/\/uaceit.com\/wp-json\/oembed\/1.0\/proxy","embedExts":["mp3","ogg","flac","m4a","wav","mp4","m4v","webm","ogv","flv"],"embedMimes":{"mp3":"audio\/mpeg","ogg":"audio\/ogg","flac":"audio\/flac","m4a":"audio\/mpeg","wav":"audio\/wav","mp4":"video\/mp4","m4v":"video\/mp4","webm":"video\/webm","ogv":"video\/ogg","flv":"video\/x-flv"},"contentWidth":null,"months":[{"year":"2020","month":"10","text":"October 2020"},{"year":"2020","month":"9","text":"September 2020"},{"year":"2020","month":"8","text":"August 2020"},{"year":"2020","month":"7","text":"July 2020"},{"year":"2020","month":"6","text":"June 2020"},{"year":"2020","month":"5","text":"May 2020"},{"year":"2020","month":"4","text":"April 2020"},{"year":"2020","month":"3","text":"March 2020"},{"year":"2020","month":"2","text":"February 2020"},{"year":"2020","month":"1","text":"January 2020"},{"year":"2019","month":"5","text":"May 2019"}],"mediaTrash":0}};
+/* ]]> */
+</script>
+<script type="text/javascript">
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "default", {"translation-revision-date":"2020-07-14 17:55:29+0000","generator":"GlotPress\/3.0.0-alpha.2","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=2; plural=n != 1;","lang":"en_GB"},"%s item selected":["%s item selected","%s items selected"]}},"comment":{"reference":"wp-includes\/js\/media-views.js"}} );
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/media-views.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/media-editor.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/media-audiovideo.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/tether.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/bootstrap.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/jquery.nice-select.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/loopcounter.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/jquery.prettySocial.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/jquery.isotope.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/jquery.magnific-popup.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/slick.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var ajax_object = {"ajaxurl":"https:\/\/uaceit.com\/wp-admin\/admin-ajax.php","redirecturl":"https:\/\/uaceit.com\/2020\/04\/15\/plant-disease-detection-web-application-using-fastai","loadingmessage":"Sending user info, please wait..."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/main.js(1).download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/comment-reply.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/main.js(2).download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wppb_posts_addon = {"ajax_url":"https:\/\/uaceit.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/posts-addon.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/thm-animated-heading.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/wp-embed.min.js.download"></script>
+		<script type="text/javascript">
+		window.wp = window.wp || {};
+		window.wp.editor = window.wp.editor || {};
+		window.wp.editor.getDefaultSettings = function() {
+			return {
+				tinymce: {theme:"modern",skin:"lightgray",language:"en",formats:{alignleft: [{selector: "p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li", styles: {textAlign:"left"}},{selector: "img,table,dl.wp-caption", classes: "alignleft"}],aligncenter: [{selector: "p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li", styles: {textAlign:"center"}},{selector: "img,table,dl.wp-caption", classes: "aligncenter"}],alignright: [{selector: "p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li", styles: {textAlign:"right"}},{selector: "img,table,dl.wp-caption", classes: "alignright"}],strikethrough: {inline: "del"}},relative_urls:false,remove_script_host:false,convert_urls:false,browser_spellcheck:true,fix_list_elements:true,entities:"38,amp,60,lt,62,gt",entity_encoding:"raw",keep_styles:false,cache_suffix:"wp-mce-4960-20190918",resize:"vertical",menubar:false,branding:false,preview_styles:"font-family font-size font-weight font-style text-decoration text-transform",end_container_on_empty_block:true,wpeditimage_html5_captions:true,wp_lang_attr:"en-GB",wp_keep_scroll_position:false,wp_shortcut_labels:{"Heading 1":"access1","Heading 2":"access2","Heading 3":"access3","Heading 4":"access4","Heading 5":"access5","Heading 6":"access6","Paragraph":"access7","Blockquote":"accessQ","Underline":"metaU","Strikethrough":"accessD","Bold":"metaB","Italic":"metaI","Code":"accessX","Align center":"accessC","Align right":"accessR","Align left":"accessL","Justify":"accessJ","Cut":"metaX","Copy":"metaC","Paste":"metaV","Select all":"metaA","Undo":"metaZ","Redo":"metaY","Bullet list":"accessU","Numbered list":"accessO","Insert\/edit image":"accessM","Insert\/edit link":"metaK","Remove link":"accessS","Toolbar Toggle":"accessZ","Insert Read More tag":"accessT","Insert Page Break tag":"accessP","Distraction-free writing mode":"accessW","Add Media":"accessM","Keyboard Shortcuts":"accessH"},content_css:"https://uaceit.com/resources/css/dashicons.min.css?ver=5.4.2,https://uaceit.com/resources/js/tinymce/skins/wordpress/wp-content.css?ver=5.4.2",toolbar1:"bold,italic,bullist,numlist,link",wpautop:false,indent:true,elementpath:false,plugins:"charmap,colorpicker,hr,lists,paste,tabfocus,textcolor,fullscreen,wordpress,wpautoresize,wpeditimage,wpemoji,wpgallery,wplink,wptextpattern"},
+				quicktags: {
+					buttons: 'strong,em,link,ul,ol,li,code'
+				}
+			};
+		};
+					var tinyMCEPreInit = {
+				baseURL: "https://uaceit.com/resources/js/tinymce",
+				suffix: ".min",
+				mceInit: {},
+				qtInit: {},
+				load_ext: function(url,lang){var sl=tinymce.ScriptLoader;sl.markDone(url+'/langs/'+lang+'.js');sl.markDone(url+'/langs/'+lang+'_dlg.js');}
+			};
+					</script>
+		<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/tinymce.min.js.download"></script>
+<script type="text/javascript" src="./Plant Disease Detection Web Application using Fastai – UAceIt_files/plugin.min.js.download"></script>
+<script type="text/javascript">
+tinymce.addI18n( 'en', {"Align center":"Align centre","Ok":"OK","Bullet list":"Bulleted list","Id should start with a letter, followed only by letters, numbers, dashes, dots, colons or underscores.":"ID should start with a letter, followed only by letters, numbers, dashes, dots, colons or underscores.","Id":"ID","Insert\/Edit code sample":"Insert\/edit code sample","Url":"URL","Color":"Colour","Custom color":"Custom colour","No color":"No colour","Spellcheck":"Check Spelling","Row properties":"Table row properties","Cell properties":"Table cell properties","Border color":"Border colour","Paste row before":"Paste table row before","Paste row after":"Paste table row after","Cut row":"Cut table row","Copy row":"Copy table row","Merge cells":"Merge table cells","Split cell":"Split table cell","Center":"Centre","Background color":"Background colour","Text color":"Text colour","Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.":"Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.\n\nIf you\u2019re looking to paste rich content from Microsoft Word, try turning this option off. The editor will clean up text pasted from Word automatically.","Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help":"Rich Text Area. Press Alt-Shift-H for help.","You have unsaved changes are you sure you want to navigate away?":"The changes you made will be lost if you navigate away from this page.","Your browser doesn't support direct access to the clipboard. Please use the Ctrl+X\/C\/V keyboard shortcuts instead.":"Your browser does not support direct access to the clipboard. Please use keyboard shortcuts or your browser\u2019s edit menu instead.","Edit|button":"Edit"});
+tinymce.ScriptLoader.markDone( 'https://uaceit.com/resources/js/tinymce/langs/en.js' );
+</script>
+		<div id="wp-link-backdrop" style="display: none"></div>
+		<div id="wp-link-wrap" class="wp-core-ui" style="display: none" role="dialog" aria-labelledby="link-modal-title">
+		<form id="wp-link" tabindex="-1">
+		<input type="hidden" id="_ajax_linking_nonce" name="_ajax_linking_nonce" value="e950638e22">		<h1 id="link-modal-title">Insert/edit link</h1>
+		<button type="button" id="wp-link-close"><span class="screen-reader-text">Close</span></button>
+		<div id="link-selector">
+			<div id="link-options">
+				<p class="howto" id="wplink-enter-url">Enter the destination URL</p>
+				<div>
+					<label><span>URL</span>
+					<input id="wp-link-url" type="text" aria-describedby="wplink-enter-url"></label>
+				</div>
+				<div class="wp-link-text-field">
+					<label><span>Link Text</span>
+					<input id="wp-link-text" type="text"></label>
+				</div>
+				<div class="link-target">
+					<label><span></span>
+					<input type="checkbox" id="wp-link-target"> Open link in a new tab</label>
+				</div>
+			</div>
+			<p class="howto" id="wplink-link-existing-content">Or link to existing content</p>
+			<div id="search-panel">
+				<div class="link-search-wrapper">
+					<label>
+						<span class="search-label">Search</span>
+						<input type="search" id="wp-link-search" class="link-search-field" autocomplete="off" aria-describedby="wplink-link-existing-content">
+						<span class="spinner"></span>
+					</label>
+				</div>
+				<div id="search-results" class="query-results" tabindex="0">
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+				<div id="most-recent-results" class="query-results" tabindex="0">
+					<div class="query-notice" id="query-notice-message">
+						<em class="query-notice-default">No search term specified. Showing recent items.</em>
+						<em class="query-notice-hint screen-reader-text">Search or use up and down arrow keys to select an item.</em>
+					</div>
+					<ul></ul>
+					<div class="river-waiting">
+						<span class="spinner"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="submitbox">
+			<div id="wp-link-cancel">
+				<button type="button" class="button">Cancel</button>
+			</div>
+			<div id="wp-link-update">
+				<input type="submit" value="Add Link" class="button button-primary" id="wp-link-submit" name="wp-link-submit">
+			</div>
+		</div>
+		</form>
+		</div>
+		
+<div id="a11y-speak-polite" class="a11y-speak-region" style="position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: inset(50%);clip-path: inset(50%);border: 0;word-wrap: normal !important;" aria-live="polite" aria-relevant="additions text" aria-atomic="true"></div><div id="a11y-speak-assertive" class="a11y-speak-region" style="position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: inset(50%);clip-path: inset(50%);border: 0;word-wrap: normal !important;" aria-live="assertive" aria-relevant="additions text" aria-atomic="true"></div></body></html>
