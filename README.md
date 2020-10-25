@@ -8,59 +8,7 @@
  Motive---->>>
 For this challenge, I used the “PlanVillage” dataset. This dataset contains an open access repository of images on plant health to enable the development of mobile disease diagnostics. The dataset contains 54, 309 images. The images span 14 crop species: Apple, Blueberry, Cherry, Grape, Orange, Peach, Bell Pepper, Potato, Raspberry, Soybean, Squash, Strawberry, and Tomato. It contains images of 17 fundal diseases, 4 bacterial diseases, 2 molds (oomycete) diseases, 2 viral diseases, and 1 disease caused by a mite. 12 crop species also have images of healthy leaves that are not visibly affected by a disease.
    **Go to https://spj.sciencemag.org/plantphenomics/2019/9237136/ to read the complete article about 'How Convolutional Neural Networks Diagnose Plant Disease'**
-   
-## Local Set-Up
-### Local:
-- It is recommended to set up the project inside a virtual environment to keep the dependencies separated.
-    * [Python](https://realpython.com/python-virtual-environments-a-primer/#why-the-need-for-virtual-environments)
-    * [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
-- Activate your virtual environment.
-- Install dependencies by running `pip install -r requirements.txt`.
-- Start up the server by running `python app/server.py serve`.
-- Visit <http://localhost:8080/> to explore and test.
-
-### Docker:
-*Make Sure the Docker is installed in your local Machine. [Click Here](https://docs.docker.com/install/) to know that how to install Docker*.
-- **Mac:**
-  ```bash
-  $ git clone https://github.com/imskr/Plant_Disease_Detection.git
-  $ cd Plant_Disease_Detection
-  $ docker build -t fastai-v3 .
-  $ docker run --rm -it -p 8080:8080 fastai-v3
-  ```
-  **Go to http://localhost:8080/ to test your app.**
-
-- **Windows:**
-  ```PowerShell or Command Prompt
-  $ git clone https://github.com/imskr/Plant_Disease_Detection.git
-  $ cd Plant_Disease_Detection
-  $ docker build -t fastai-v3 .
-  $ docker run --rm -it -p 8080:8080 fastai-v3
-  ```
-  **Go to http://localhost:8080/ to test your app.**
-
-  **Note:** Windows 10 Pro required.
-
-- **Linux:**
-  ```Terminal
-  $ git clone https://github.com/imskr/Plant_Disease_Detection.git
-  $ cd Plant_Disease_Detection
-  $ docker build -t fastai-v3 .
-  $ docker run --rm -it -p 8080:8080 fastai-v3
-   ```
-   **Note:** If this doesn't work use `--no-cache` flag in the build command.
-
-  **Go to http://localhost:8080/ to test your app.**
-
-## Deployment
-
-- **Google Cloud Platform:**
-
-  The complete guideline to deploy the *Plant Disease Detection App* can be found [*here*](./deployment_guide/gcp_deployment.md)
-  
-- **AWS Elastic BeanStalk:**
-  
-  The complete guideline to deploy the *Plant Disease Detection App* can be found [*here*](./deployment_guide/aws_deployment.md)
+ 
 
 
 ## Server Set-Up  (For Training)
