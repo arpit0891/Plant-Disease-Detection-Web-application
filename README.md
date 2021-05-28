@@ -17,7 +17,15 @@ For this challenge, I used the “PlanVillage” dataset. This dataset contains 
 - **Gradient (Easy)** -  The complete tutorial can be found [*here*](https://course.fast.ai/start_gradient.html)
 
 - **AWS EC2 (Advance)** - The complete tutorial can be found [*here*](https://course.fast.ai/start_aws.html)
+```
+git clone https://github.com/arpit0891/Plant-Disease-Detection-Web-application.git
 
+cd ./Plant-Disease-Detection-Web-application/'Web Application'
+
+docker build -t fastai-v3
+
+docker run --rm -it -p 8080:8080 fastai-v3
+```
 ## Dataset Description:
 
 |Name           | No of Classes | Class Names
