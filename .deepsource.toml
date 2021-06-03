@@ -1,0 +1,18 @@
+version = 1
+
+exclude_patterns = [
+    "cd ./'Web Application'",
+    "docker build -t fastai-v3",
+    "docker run --rm -it -p 8080:8080 fastai-v3"
+]
+
+[[analyzers]]
+name = "python"
+enabled = true
+
+  [analyzers.meta]
+  runtime_version = "3.x.x"
+
+[[analyzers]]
+name = "javascript"
+enabled = true
