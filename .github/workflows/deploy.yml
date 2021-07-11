@@ -34,5 +34,5 @@ jobs:
         run: |
           ls
           cd ./"Web application"
-          docker build -t fastai-v3
-          docker run --rm -it -p 8080:8080 fastai-v3
+          sudo docker build -t fastai-v3
+          sudo docker run --rm -it -p 8080:8080 fastai-v3
