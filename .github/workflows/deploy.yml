@@ -34,6 +34,6 @@ jobs:
         run: |
           ls
           sudo apt-get install -y apt-utils
-          sudo cd ./"Web application"
+          cd ./"Web application"
           sudo docker build -t fastai-v3 .
           sudo docker run --rm -it -p 8080:8080 fastai-v3 .
