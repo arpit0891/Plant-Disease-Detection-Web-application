@@ -33,6 +33,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           ls
+          sudo apt-utils
           cd ./"Web application"
           sudo docker build -t fastai-v3 .
           sudo docker run --rm -it -p 8080:8080 fastai-v3 .
