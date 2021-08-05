@@ -22,20 +22,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - with:
+          python-version: 3.7
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
 
-      - run: apt-get update && apt-get install -y git python3-dev gcc \
-            && rm -rf /var/lib/apt/lists/*
       - run: pip install --upgrade -r requirements.txt
-      - run: |
-          cd ./"Web application"
-          docker build -t fastai-v3 .
-          docker run --rm -it -p 8080:8080 fastai-v3 .
+      
+      - name: Run a one-line script
+
+      - run: cd ./"Web application"
+      
+      - name: Run migrations
+        run: python app/server.py migrate
+      - name: Run tests
+        run: python app/server.py serve
