@@ -31,9 +31,11 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
-        run: |
-          ls
-          sudo apt-get install -y apt-utils
+
+      - run: apt-get update && apt-get install -y git python3-dev gcc \
+            && rm -rf /var/lib/apt/lists/*
+      - run: pip install --upgrade -r requirements.txt
+      - run: |
           cd ./"Web application"
-          sudo docker build -t fastai-v3 .
-          sudo docker run --rm -it -p 8080:8080 fastai-v3 .
+          docker build -t fastai-v3 .
+          docker run --rm -it -p 8080:8080 fastai-v3 .
