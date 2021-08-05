@@ -27,3 +27,4 @@ jobs:
 		run: python app/server.py migrate
 		- name: Run tests
 		run: python app/server.py serve
+
