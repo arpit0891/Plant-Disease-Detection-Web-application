@@ -53,9 +53,11 @@ cd ./Plant-Disease-Detection-Web-application/'Web application'
 
 sudo pip install -r requirements.txt
 
-sudo docker build -t fastai-v3 .
+sudo docker build -t pdd .
 
-docker run --rm -it -p 8080:8080 fastai-v3
+sudo docker images --filter reference=pdd
+
+sudo docker run -t -i -p 8080:8080 pdd
 ```
 ## Dataset Description:
 
