@@ -27,7 +27,9 @@ Motive
 
 For this challenge, I used the “PlanVillage” dataset. This dataset contains an open access repository of images on plant health to enable the development of mobile disease diagnostics. The dataset contains 54, 309 images. The images span 14 crop species: Apple, Blueberry, Cherry, Grape, Orange, Peach, Bell Pepper, Potato, Raspberry, Soybean, Squash, Strawberry, and Tomato. It contains images of 17 fundal diseases, 4 bacterial diseases, 2 molds (oomycete) diseases, 2 viral diseases, and 1 disease caused by a mite. 12 crop species also have images of healthy leaves that are not visibly affected by a disease.
 
-![PDD](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/img1.png)
+![MOCK](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.gif)
+
+![PDD](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.png)
    - Deep learning with convolutional neural networks (CNNs) has achieved great success in the classification of various plant diseases. However, a limited number of studies have elucidated the process of inference, leaving it as an untouchable black box. 
    - Revealing the CNN to extract the learned feature as an interpretable form not only ensures its reliability but also enables the validation of the model authenticity and the training dataset by human intervention. 
    - In this study, a variety of neuron-wise and layer-wise visualization methods were applied using a CNN, trained with a publicly available plant disease image dataset. We showed that neural networks can capture the colors and textures of lesions specific to respective diseases upon diagnosis, which resembles human decision-making. 
@@ -53,9 +55,11 @@ cd ./Plant-Disease-Detection-Web-application/'Web application'
 
 sudo pip install -r requirements.txt
 
-sudo docker build -t fastai-v3 .
+sudo docker build -t pdd .
 
-docker run --rm -it -p 8080:8080 fastai-v3
+sudo docker images --filter reference=pdd
+
+sudo docker run -t -i -p 8080:8080 pdd
 ```
 ## Dataset Description:
 

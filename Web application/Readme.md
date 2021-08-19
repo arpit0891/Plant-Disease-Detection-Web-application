@@ -1,9 +1,14 @@
 ```
 git clone https://github.com/arpit0891/Plant-Disease-Detection-Web-application.git
 
-cd ./Plant-Disease-Detection-Web-application/'Web Application'
+cd ./Plant-Disease-Detection-Web-application/'Web application'
 
-docker build -t fastai-v3
+sudo pip install -r requirements.txt
 
-docker run --rm -it -p 8080:8080 fastai-v3
+sudo docker build -t pdd .
+
+sudo docker images --filter reference=pdd
+
+sudo docker run -t -i -p 8080:8080 pdd
+
 ```
