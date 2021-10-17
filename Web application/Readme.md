@@ -1,4 +1,6 @@
+For Linux
 ```
+
 git clone https://github.com/arpit0891/Plant-Disease-Detection-Web-application.git
 
 cd ./Plant-Disease-Detection-Web-application/'Web application'
