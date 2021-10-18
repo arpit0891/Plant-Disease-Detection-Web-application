@@ -1,10 +1,11 @@
-import aiohttp
 import asyncio
-import uvicorn
 import sys
+from io import BytesIO
+
+import aiohttp
+import uvicorn
 from fastai import *
 from fastai.vision import *
-from io import BytesIO
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
