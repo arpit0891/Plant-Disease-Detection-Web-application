@@ -8,7 +8,8 @@ from fastai import *
 from fastai.vision import *
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
-from starlette.responses import HTMLResponse, JSONResponse
+from starlette.responses import HTMLResponse
+from starlette.responses import JSONResponse
 from starlette.staticfiles import StaticFiles
 
 export_file_url = (
