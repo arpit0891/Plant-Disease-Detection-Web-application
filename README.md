@@ -2,9 +2,7 @@
 
 
 AI web application that detects diseases in plants using FastAi which is built on the
-top of Facebook’s deep learning platform: PyTorch. According to the Food and Agriculture
-Organization of the United Nations (UN), trans-boundary plant pests and diseases affect food
-crops, causing significant losses to farmers and threatening food security.
+top of Facebook’s deep learning platform: PyTorch. 
 The application uses open access repository for the dataset.
 
 Detection of plant disease through some automatic technique is beneficial as it requires a large
