@@ -7,10 +7,6 @@ Automated plant disease detection eases the substantial workload entailed in mon
 ### Motivation
 The initiative for this project was drawn from the "PlanVillage" dataset, encompassing an open-access image repository aimed at advancing mobile disease diagnostic solutions for plants. The dataset aggregates 54,309 images across 14 crop species, including but not limited to Apple, Blueberry, and Tomato. It's a rich resource illustrating 17 fungal diseases, 4 bacterial diseases, 2 mold (oomycete) diseases, 2 viral diseases, and 1 mite-induced disease. Additionally, images of healthy leaves from 12 crop species are included to provide a comprehensive view.
 
-![Demo GIF](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.gif)
-
-![App Interface](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.png)
-
 ### Technical Insights
 
 - Utilizing Convolutional Neural Networks (CNNs) for deep learning has significantly enhanced the classification accuracy of various plant diseases. However, the lack of insight into the underlying inference process leaves it dubbed as a "black box."
@@ -20,6 +16,8 @@ The initiative for this project was drawn from the "PlanVillage" dataset, encomp
 - The outcomes of this study encourage a broader understanding and more efficient deployment of deep learning for plant disease diagnosis within the plant science community.
 
 For a deeper dive into the study, visit [How Convolutional Neural Networks Diagnose Plant Disease](https://spj.sciencemag.org/plantphenomics/2019/9237136/).
+
+
 
 ### Server Set-Up (For Training)
 - **Google Cloud Platform (Intermediate)** - Complete tutorial available [here](https://course.fast.ai/start_gcp.html).
@@ -34,6 +32,9 @@ sudo docker build -t pdd .
 sudo docker images --filter reference=pdd
 sudo docker run -t -i -p 8080:8080 pdd
 ```
+![MOCK](https://raw.githubusercontent.com/arpit0891/Plant-Disease-Detection-Web-application/master/pdd.gif)
+
+![PDD](https://raw.githubusercontent.com/arpit0891/Plant-Disease-Detection-Web-application/master/pdd.png)
 
 ## Dataset Description:
 
