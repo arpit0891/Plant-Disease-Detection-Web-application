@@ -7,9 +7,9 @@ Automated plant disease detection eases the substantial workload entailed in mon
 ### Motivation
 The initiative for this project was drawn from the "PlanVillage" dataset, encompassing an open-access image repository aimed at advancing mobile disease diagnostic solutions for plants. The dataset aggregates 54,309 images across 14 crop species, including but not limited to Apple, Blueberry, and Tomato. It's a rich resource illustrating 17 fungal diseases, 4 bacterial diseases, 2 mold (oomycete) diseases, 2 viral diseases, and 1 mite-induced disease. Additionally, images of healthy leaves from 12 crop species are included to provide a comprehensive view.
 
-![Demo GIF](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.gif)
+![MOCK](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.gif)
 
-![App Interface](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.png)
+![PDD](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.png)
 
 ### Technical Insights
 
