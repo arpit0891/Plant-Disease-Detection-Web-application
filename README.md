@@ -5,6 +5,7 @@ This web application leverages AI to identify diseases in plants, utilizing the 
 Automated plant disease detection eases the substantial workload entailed in monitoring large agricultural expanses. The application is designed to identify symptoms at an early stage when they manifest on plant foliage.
 
 ### Motivation
+
 The initiative for this project was drawn from the "PlanVillage" dataset, encompassing an open-access image repository aimed at advancing mobile disease diagnostic solutions for plants. The dataset aggregates 54,309 images across 14 crop species, including but not limited to Apple, Blueberry, and Tomato. It's a rich resource illustrating 17 fungal diseases, 4 bacterial diseases, 2 mold (oomycete) diseases, 2 viral diseases, and 1 mite-induced disease. Additionally, images of healthy leaves from 12 crop species are included to provide a comprehensive view.
 
 ![Demo GIF](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.gif)
@@ -22,6 +23,7 @@ The initiative for this project was drawn from the "PlanVillage" dataset, encomp
 For a deeper dive into the study, visit [How Convolutional Neural Networks Diagnose Plant Disease](https://spj.sciencemag.org/plantphenomics/2019/9237136/).
 
 ### Server Set-Up (For Training)
+
 - **Google Cloud Platform (Intermediate)** - Complete tutorial available [here](https://course.fast.ai/start_gcp.html).
 - **Gradient (Easy)** - Complete tutorial available [here](https://course.fast.ai/start_gradient.html).
 - **AWS EC2 (Advanced)** - Complete tutorial available [here](https://course.fast.ai/start_aws.html).
@@ -52,3 +54,4 @@ sudo docker run -t -i -p 8080:8080 pdd
 | Squash    |     01        | 'Squash___Powdery_mildew' |
 | Strawberry|     02        | 'Strawberry___Leaf_scorch','Strawberry___healthy' |
 | Tomato    |     10        | Tomato: 'Bacterial_spot','Early_blight', 'Late_blight', 'Leaf_Mold', 'Septoria_leaf_spot', 'Spider_mites','Target_Spot', 'Yellow_Leaf_Curl_Virus', 'Mosaic_virus', 'Healthy' |
+```
