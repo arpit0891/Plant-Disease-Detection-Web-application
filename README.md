@@ -1,51 +1,39 @@
-## About Plant Disease Detection Web Application
+## About The Plant Disease Detection Web Application
 
+This web application leverages AI to identify diseases in plants, utilizing the FastAI library built atop Facebook's deep learning platform, PyTorch. It employs an open-access dataset repository for training and validation purposes.
 
-AI web application that detects diseases in plants using FastAi which is built on the
-top of Facebook’s deep learning platform: PyTorch. 
-The application uses open access repository for the dataset.
+Automated plant disease detection eases the substantial workload entailed in monitoring large agricultural expanses. The application is designed to identify symptoms at an early stage when they manifest on plant foliage.
 
-Detection of plant disease through some automatic technique is beneficial as it requires a large
-amount of work of monitoring in big farm of crops, and at very early stage itself it detects symptoms of
-diseases means where they appear on plant leaves.
-Motive
+### Motivation
+The initiative for this project was drawn from the "PlanVillage" dataset, encompassing an open-access image repository aimed at advancing mobile disease diagnostic solutions for plants. The dataset aggregates 54,309 images across 14 crop species, including but not limited to Apple, Blueberry, and Tomato. It's a rich resource illustrating 17 fungal diseases, 4 bacterial diseases, 2 mold (oomycete) diseases, 2 viral diseases, and 1 mite-induced disease. Additionally, images of healthy leaves from 12 crop species are included to provide a comprehensive view.
 
-For this challenge, I used the “PlanVillage” dataset. This dataset contains an open access repository of images on plant health to enable the development of mobile disease diagnostics. The dataset contains 54, 309 images. The images span 14 crop species: Apple, Blueberry, Cherry, Grape, Orange, Peach, Bell Pepper, Potato, Raspberry, Soybean, Squash, Strawberry, and Tomato. It contains images of 17 fundal diseases, 4 bacterial diseases, 2 molds (oomycete) diseases, 2 viral diseases, and 1 disease caused by a mite. 12 crop species also have images of healthy leaves that are not visibly affected by a disease.
+![Demo GIF](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.gif)
 
-![MOCK](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.gif)
+![App Interface](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.png)
 
-![PDD](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.png)
-   - Deep learning with convolutional neural networks (CNNs) has achieved great success in the classification of various plant diseases. However, a limited number of studies have elucidated the process of inference, leaving it as an untouchable black box. 
-   - Revealing the CNN to extract the learned feature as an interpretable form not only ensures its reliability but also enables the validation of the model authenticity and the training dataset by human intervention. 
-   - In this study, a variety of neuron-wise and layer-wise visualization methods were applied using a CNN, trained with a publicly available plant disease image dataset. We showed that neural networks can capture the colors and textures of lesions specific to respective diseases upon diagnosis, which resembles human decision-making. 
-   - While several visualization methods were used as they are, others had to be optimized to target a specific layer that fully captures the features to generate consequential outputs. Moreover, by interpreting the generated attention maps, we identified several layers that were not contributing to inference and removed such layers inside the network, decreasing the number of parameters by 75% without affecting the classification accuracy. 
-   - The results provide an impetus for the CNN black box users in the field of plant science to better understand the diagnosis process and lead to further efficient use of deep learning for plant disease diagnosis.
-   
- Motive---->>>
-For this challenge, I used the “PlanVillage” dataset. This dataset contains an open access repository of images on plant health to enable the development of mobile disease diagnostics. The dataset contains 54, 309 images. The images span 14 crop species: Apple, Blueberry, Cherry, Grape, Orange, Peach, Bell Pepper, Potato, Raspberry, Soybean, Squash, Strawberry, and Tomato. It contains images of 17 fundal diseases, 4 bacterial diseases, 2 molds (oomycete) diseases, 2 viral diseases, and 1 disease caused by a mite. 12 crop species also have images of healthy leaves that are not visibly affected by a disease.
-   **Go to https://spj.sciencemag.org/plantphenomics/2019/9237136/ to read the complete article about 'How Convolutional Neural Networks Diagnose Plant Disease'**
- 
+### Technical Insights
 
+- Utilizing Convolutional Neural Networks (CNNs) for deep learning has significantly enhanced the classification accuracy of various plant diseases. However, the lack of insight into the underlying inference process leaves it dubbed as a "black box."
+- This study aims to demystify the CNN by extracting and visualizing learned features in an interpretable manner, thereby ensuring model reliability and enabling human validation of the model and dataset.
+- A host of neuron-wise and layer-wise visualization methods were employed on a CNN trained with a publicly available plant disease image dataset. The findings reveal that neural networks effectively discern the color and texture of lesions characteristic of specific diseases, mirroring human diagnostic procedures.
+- A variety of visualization methods were optimized to target specific layers that fully capture consequential features. By interpreting the generated attention maps, several non-contributory layers were identified and eliminated from the network, reducing the parameter count by 75% without compromising classification accuracy.
+- The outcomes of this study encourage a broader understanding and more efficient deployment of deep learning for plant disease diagnosis within the plant science community.
 
-## Server Set-Up  (For Training)
-- **Google Cloud Platform (Intermediate)** - The complete tutorial can be found [*here*](https://course.fast.ai/start_gcp.html)
+For a deeper dive into the study, visit [How Convolutional Neural Networks Diagnose Plant Disease](https://spj.sciencemag.org/plantphenomics/2019/9237136/).
 
-- **Gradient (Easy)** -  The complete tutorial can be found [*here*](https://course.fast.ai/start_gradient.html)
+### Server Set-Up (For Training)
+- **Google Cloud Platform (Intermediate)** - Complete tutorial available [here](https://course.fast.ai/start_gcp.html).
+- **Gradient (Easy)** - Complete tutorial available [here](https://course.fast.ai/start_gradient.html).
+- **AWS EC2 (Advanced)** - Complete tutorial available [here](https://course.fast.ai/start_aws.html).
 
-- **AWS EC2 (Advance)** - The complete tutorial can be found [*here*](https://course.fast.ai/start_aws.html)
-```
+```bash
 git clone https://github.com/arpit0891/Plant-Disease-Detection-Web-application.git
-
 cd ./Plant-Disease-Detection-Web-application/'Web application'
-
 sudo pip install -r requirements.txt
-
 sudo docker build -t pdd .
-
 sudo docker images --filter reference=pdd
-
 sudo docker run -t -i -p 8080:8080 pdd
-```
+
 ## Dataset Description:
 
 |Name           | No of Classes | Class Names
