@@ -33,6 +33,7 @@ sudo pip install -r requirements.txt
 sudo docker build -t pdd .
 sudo docker images --filter reference=pdd
 sudo docker run -t -i -p 8080:8080 pdd
+```
 
 ## Dataset Description:
 
