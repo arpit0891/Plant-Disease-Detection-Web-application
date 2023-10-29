@@ -32,9 +32,9 @@ sudo docker build -t pdd .
 sudo docker images --filter reference=pdd
 sudo docker run -t -i -p 8080:8080 pdd
 ```
-![MOCK](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.gif)
+![MOCK](https://raw.githubusercontent.com/arpit0891/Plant-Disease-Detection-Web-application/master/pdd.gif)
 
-![PDD](https://github.com/arpit0891/Plant-Disease-Detection-Web-application/blob/master/pdd.png)
+![PDD](https://raw.githubusercontent.com/arpit0891/Plant-Disease-Detection-Web-application/master/pdd.png)
 
 ## Dataset Description:
 
